@@ -1,0 +1,11 @@
+.loginRect {
+    border-radius: 25px;
+    background: #ff7575;
+    padding: 20px; 
+    height: 300px;
+    margin: auto;
+    width: 35%;
+
+    padding: 10px;
+  }
+  

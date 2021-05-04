@@ -1,0 +1,39 @@
+
+
+
+    <table style="width: 50%; margin: auto;" >
+        <tr style="border: 1px solid black; text-align: center; font-weight: bold;
+        background: rgb(83, 161, 161); color: white;">
+            <td>User Details</td>
+        </tr>
+    </table>
+
+    <table style="width: 50%; margin: auto;" >
+
+
+        <br>
+        <tr style="border: 1px solid black; ">
+            <td>&nbsp;&nbsp;&nbsp;First Name</td><td>{{user.firstName}}</td>
+        </tr>
+        <br>
+        <tr style="border: 1px solid black; ">
+            <td>&nbsp;&nbsp;&nbsp;Last Name</td><td>{{user.lastName}}</td>
+        </tr>
+        <br>
+        <tr style="border: 1px solid black; ">
+            <td>&nbsp;&nbsp;&nbsp;Email</td><td>{{user.emailID}}</td>
+        </tr>
+        <br>
+        <tr style="border: 1px solid black;" >
+            <td>&nbsp;&nbsp;&nbsp;Role</td><td>{{user.role}}</td>
+        </tr>
+        <br>
+        <tr>
+            <button type="button" (click)="goBack()"  id="vubtn" >Back</button>
+            <button type="button"  (click)="updateUser(user.id)" id="vubtn" style="margin-left: 10px;">Edit</button>
+            <button type="button"  (click)="deleteUser(user.id)" id="vubtn" style="margin-left: 10px;">Delete</button>
+        </tr>
+
+
+
+    </table>

@@ -36,4 +36,8 @@ export class UserListComponent implements OnInit {
       this.getUsers();
     });
   }
+
+  viewUser(id :number){
+    this.router.navigate(['viewuser',id]);
+  }
 }

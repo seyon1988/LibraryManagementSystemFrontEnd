@@ -16,8 +16,9 @@
             <td>{{user.role}}</td>
             <td>{{user.emailID}}</td>
             <td>
-                <button id="ebtn" (click)="updateUser(user.id)" class="btn bnt-info">Update</button>
-                <button id="dbtn" (click)="deleteUser(user.id)" class="btn bnt-danger" style="margin-left: 10px;">Delete</button>
+                <button id="eubtn" (click)="updateUser(user.id)" class="btn bnt-info">Update</button>
+                <button id="dubtn" (click)="deleteUser(user.id)" class="btn bnt-danger" style="margin-left: 10px;">Delete</button>
+                <button id="vubtn" (click)="viewUser(user.id)" class="btn bnt-danger" style="margin-left: 10px;">View</button>
             </td>
         </tr> 
     </tbody>

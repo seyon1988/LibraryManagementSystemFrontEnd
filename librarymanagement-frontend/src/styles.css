@@ -36,12 +36,20 @@
 
 }
 
-#ebtn{
+#eubtn{
+    width: 90px;
     background: rgb(129, 204, 114);
     color: white;
 }
 
-#dbtn{
+#dubtn{
+    width: 90px;
     background: rgb(184, 51, 51);
+    color: white;
+}
+
+#vubtn{
+    width: 90px;
+    background: rgb(83, 161, 161);
     color: white;
 }
