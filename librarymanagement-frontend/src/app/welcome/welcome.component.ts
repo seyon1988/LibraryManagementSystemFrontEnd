@@ -78,20 +78,15 @@ export class WelcomeComponent implements OnInit {
   viewBooks(){}
   myLoans(){}
 
-  addUser(){}
+
   manageUsers(){}
-  addBooks(){}
   manageBooks(){}
-  lendBook(){}
   manageLending(){}
 
   getLoginIdTxt(){return PARAMS.strLoginID};
   getMyLoansTxt(){return PARAMS.strMyLoans};
-  getAddUserTxt(){return PARAMS.strAddUser};
   getManageUsersTxt(){return PARAMS.strManageUsers};
-  getAddBooksTxt(){return PARAMS.strAddBooks};
   getManageBoosTxt(){return PARAMS.strManageBooks};
-  getLendBookTxt(){return PARAMS.strLendBook};
   getManageLendingTxt(){return PARAMS.strManageLending};
 
 
