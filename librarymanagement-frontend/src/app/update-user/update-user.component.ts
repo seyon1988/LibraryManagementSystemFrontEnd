@@ -16,7 +16,8 @@ import { UserService } from '../user.service';
 
 export class UpdateUserComponent implements OnInit {
 
-  constructor(private userService:UserService,
+  constructor(
+    private userService:UserService,
     private route:ActivatedRoute,
     private router:Router) { }
 
@@ -31,6 +32,7 @@ export class UpdateUserComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.userService.getUserByID(this.id).subscribe(data => {
       this.user = data;
+      console.log("Data = "+data.firstName);
     } , error => console.log(error));
   }
 
