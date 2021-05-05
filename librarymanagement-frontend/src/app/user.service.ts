@@ -31,5 +31,8 @@ export class UserService {
     return this.httpClient.delete(`${this.baseURL}/${id}`);
   }
 
+  getUserByEmailPword(email: String,password: String):Observable<User>{
+    return this.httpClient.get<User>(`${this.baseURL}/${email}/${password}`);
+  }
 }
  

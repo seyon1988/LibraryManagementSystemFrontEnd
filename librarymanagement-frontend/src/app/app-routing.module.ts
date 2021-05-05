@@ -10,12 +10,14 @@ import { LoginComponent } from './login/login.component';
 const routes: Routes = [
   {path: 'users' , component: UserListComponent},
   {path: 'welcome' , component: WelcomeComponent},
+  {path: 'member/:id' , component: WelcomeComponent},
   {path: 'login' , component: LoginComponent},
   {path: 'createuser' , component: CreateUserComponent},
   //{path: '' , redirectTo:'users' , pathMatch:'full'},
   {path: '' , redirectTo:'welcome' , pathMatch:'full'},
   {path: 'updateuser/:id' , component: UpdateUserComponent},
-  {path: 'viewuser/:id' , component: ViewUserComponent}
+  {path: 'viewuser/:id' , component: ViewUserComponent},
+  {path: 'validatecredentials/:email/:password:' , component: ViewUserComponent}
 ];
 
 @NgModule({

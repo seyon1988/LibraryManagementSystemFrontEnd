@@ -1,4 +1,21 @@
-<div class="loginRect">
 
+<form  (ngSubmit) = "onSubmit()" >
 
-</div>
+    <div class="loginRect">
+        <div class="loginRect2">
+            
+                <h4 class="lin">{{errorNotification}}</h4>
+        </div>
+        <br>
+        <input placeholder="email" id="em" type="text" class="form-control" id="emailid" required [(ngModel)] = "email"  name="emailid">
+        <br>
+        <input placeholder="password"  id="pass" type="text" class="form-control" id="password" required [(ngModel)] = "pword" name="password">
+        <br><br>
+    
+        &nbsp;&nbsp;&nbsp;&nbsp;<button  type="submit"  id="lubtn" class="btn bnt-info">Signin</button>
+    
+        &nbsp;&nbsp;&nbsp;&nbsp;<button type="reset" id="lubtn" class="btn bnt-info">Clear</button>
+    </div>
+    
+
+</form>
