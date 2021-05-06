@@ -1,6 +1,87 @@
 
 
 
+
+
+
+<nav ng-model="foo" class="navbar navbar-expand-sm   navbar-dark" >
+
+
+
+    <img src="/assets/images/user.png" alt="image">
+    &nbsp;&nbsp;
+    <ul class = "navbar-nav" style="margin-right: 0px; float: right; color: white;">
+  
+  
+  
+      <li >
+        <a type="button" (click)="login()"  class="nav-link">
+            <div style="color: white; font-size: 20px">
+              {{getLoginIdTxt()}}</div></a>
+      </li>&nbsp;&nbsp;
+      
+      <li >
+        <a type="button" (click)="goHome()"  class="nav-link">
+            <div style="color: white; font-size: 20px">
+              Home</div></a>
+      </li>&nbsp;&nbsp;
+  
+  
+      <li>
+        <a type="button" class="nav-link">
+            <div style="color: white; font-size: 20px">View Books</div></a>
+      </li>&nbsp;&nbsp;
+  
+  
+  
+  
+      <li >
+        <a type="button"   class="nav-link">
+            <div style="color: white; font-size: 20px">
+              {{getMyLoansTxt()}}</div></a>
+      </li>&nbsp;&nbsp;
+  
+  
+  
+  
+      <li >
+        <a type="button" (click)="goBack()"  class="nav-link">
+            <div style="color: white; font-size: 20px">
+              {{getManageUsersTxt()}}</div></a>
+      </li>&nbsp;&nbsp;
+  
+  
+  
+      <li >
+        <a type="button"   class="nav-link">
+            <div style="color: white; font-size: 20px">
+              {{getManageBoosTxt()}}</div></a>
+      </li>&nbsp;&nbsp;
+  
+  
+  
+      <li >
+        <a type="button"   class="nav-link">
+            <div style="color: white; font-size: 20px">
+              {{getManageLendingTxt()}}</div></a>
+      </li>&nbsp;&nbsp;
+  
+  
+  
+    </ul>
+  </nav>
+    <br><br>  
+
+
+
+
+
+
+
+
+
+
+
     <table style="width: 50%; margin: auto;" >
         <tr style="border: 1px solid black; text-align: center; font-weight: bold;
         background: rgb(83, 161, 161); color: white;">
@@ -28,9 +109,17 @@
             <td>&nbsp;&nbsp;&nbsp;Role</td><td>{{user.role}}</td>
         </tr>
         <br>
+        <tr style="border: 1px solid black;" >
+            <td>&nbsp;&nbsp;&nbsp;Book Quota</td><td>{{user.bookQuota}}</td>
+        </tr>
+        <br>
+        <tr style="border: 1px solid black;" >
+            <td>&nbsp;&nbsp;&nbsp;Utilized Quota</td><td>{{user.utilizedQuota}}</td>
+        </tr>
+        <br>
         <tr>
             <button type="button" (click)="goBack()"  id="vubtn" >Back</button>
-            <button type="button"  (click)="updateUser(user.id)" id="vubtn" style="margin-left: 10px;">Edit</button>
+            <button type="button"  (click)="updateUser(admin.id,user.id)" id="vubtn" style="margin-left: 10px;">Edit</button>
             <button type="button"  (click)="deleteUser(user.id)" id="vubtn" style="margin-left: 10px;">Delete</button>
         </tr>
 

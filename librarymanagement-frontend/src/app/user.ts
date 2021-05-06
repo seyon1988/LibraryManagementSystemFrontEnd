@@ -5,4 +5,8 @@ export class User {
     role:String;
     emailID:String;
     password:String;
+    bookQuota:number;
+    utilizedQuota:number;
+
+
 }

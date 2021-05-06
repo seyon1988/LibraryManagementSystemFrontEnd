@@ -1,14 +1,26 @@
 
 <nav ng-model="foo" class="navbar navbar-expand-sm   navbar-dark" >
+
+
+
   <img src="/assets/images/user.png" alt="image">
   &nbsp;&nbsp;
   <ul class = "navbar-nav" style="margin-right: 0px; float: right; color: white;">
+
+
 
     <li >
       <a type="button" (click)="login()"  class="nav-link">
           <div style="color: white; font-size: 20px">
             {{getLoginIdTxt()}}</div></a>
     </li>&nbsp;&nbsp;
+
+    <li >
+      <a type="button"   class="nav-link">
+          <div style="color: white; font-size: 20px">
+            Home</div></a>
+    </li>&nbsp;&nbsp;
+
 
     <li>
       <a type="button" class="nav-link">
@@ -28,7 +40,7 @@
 
 
     <li >
-      <a type="button" (click)="test()"  class="nav-link">
+      <a type="button"  (click)="manageUsers()" class="nav-link">
           <div style="color: white; font-size: 20px">
             {{getManageUsersTxt()}}</div></a>
     </li>&nbsp;&nbsp;

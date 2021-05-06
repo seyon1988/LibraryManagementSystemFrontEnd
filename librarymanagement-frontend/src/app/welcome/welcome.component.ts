@@ -14,8 +14,8 @@ export class WelcomeComponent implements OnInit {
 
 
   user:User;
-  id:number;
-  rid:number;
+  mid:number;
+
 
   signedin: Boolean;
   url_identifier : String;
@@ -32,18 +32,15 @@ export class WelcomeComponent implements OnInit {
       PARAMS.setNavParams(0,this.user);
 
     }else if(this.url_identifier=="member"){
-      this.rid = 0;
-      this.id = this.route.snapshot.params['id'];
-      console.log("Member = " + this.id)
+      this.mid = this.route.snapshot.params['mid'];
 
-      this.userService.getUserByID(this.id).subscribe(data => {
+
+      this.userService.getUserByID(this.mid).subscribe(data => {
         this.user = data;
         if(data.id==0){
-          console.log("User undefined");
           PARAMS.setNavParams(0,this.user);
-          PARAMS.loginStatus = true;
+          PARAMS.loginStatus = false;
         }else{
-          console.log("User Defined");
           PARAMS.setNavParams(1,this.user);
           PARAMS.loginStatus = true;
         }
@@ -79,7 +76,14 @@ export class WelcomeComponent implements OnInit {
   myLoans(){}
 
 
-  manageUsers(){}
+  manageUsers(){
+    this.router.navigate(['manageusers',this.mid]);
+  }
+
+  goHome(){
+    this.router.navigate(['member',this.mid]);
+  }
+
   manageBooks(){}
   manageLending(){}
 

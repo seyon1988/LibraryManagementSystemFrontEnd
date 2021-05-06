@@ -1,4 +1,79 @@
 
+
+
+
+<nav ng-model="foo" class="navbar navbar-expand-sm   navbar-dark" >
+
+
+
+    <img src="/assets/images/user.png" alt="image">
+    &nbsp;&nbsp;
+    <ul class = "navbar-nav" style="margin-right: 0px; float: right; color: white;">
+  
+  
+  
+      <li >
+        <a type="button" (click)="login()"  class="nav-link">
+            <div style="color: white; font-size: 20px">
+              {{getLoginIdTxt()}}</div></a>
+      </li>&nbsp;&nbsp;
+      
+      <li >
+        <a type="button" (click)="goHome()"  class="nav-link">
+            <div style="color: white; font-size: 20px">
+              Home</div></a>
+      </li>&nbsp;&nbsp;
+  
+  
+      <li>
+        <a type="button" class="nav-link">
+            <div style="color: white; font-size: 20px">View Books</div></a>
+      </li>&nbsp;&nbsp;
+  
+  
+  
+  
+      <li >
+        <a type="button"   class="nav-link">
+            <div style="color: white; font-size: 20px">
+              {{getMyLoansTxt()}}</div></a>
+      </li>&nbsp;&nbsp;
+  
+  
+  
+  
+      <li >
+        <a type="button" (click)="manageUsers()"  class="nav-link">
+            <div style="color: white; font-size: 20px">
+              {{getManageUsersTxt()}}</div></a>
+      </li>&nbsp;&nbsp;
+  
+  
+  
+      <li >
+        <a type="button"   class="nav-link">
+            <div style="color: white; font-size: 20px">
+              {{getManageBoosTxt()}}</div></a>
+      </li>&nbsp;&nbsp;
+  
+  
+  
+      <li >
+        <a type="button"   class="nav-link">
+            <div style="color: white; font-size: 20px">
+              {{getManageLendingTxt()}}</div></a>
+      </li>&nbsp;&nbsp;
+  
+  
+  
+    </ul>
+  </nav>
+    <br><br>  
+
+
+
+
+
 <div class="col-md-8 offser-md-3" style="margin: auto;">
     <h3>Update User</h3>
     <form  (ngSubmit) = "onSubmit()">
@@ -30,6 +105,13 @@
             <input type="text" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
         </div>
     
+
+        <div class="form-group">
+            <label >Book Quota</label>
+            <input type="text" class="form-control" id="bookQuota" required [(ngModel)]="user.bookQuota" name="bookQuota">
+        </div>
+
+
         <button type="submit" class="btn btn-success">Submit</button>
     
     

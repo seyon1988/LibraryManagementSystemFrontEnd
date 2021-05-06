@@ -23,7 +23,7 @@ export class PARAMS {
           PARAMS.strManageBooks = "" ;
           PARAMS.strManageLending = "" ;
         }else if(ls==1){
-          PARAMS.strLoginID = user.firstName+" ,Logout" ;
+          PARAMS.strLoginID = user.firstName+", Logout" ;
           PARAMS.strMyLoans = "MyLoans" ;
     
           if(user.role.toLowerCase()=="student"){

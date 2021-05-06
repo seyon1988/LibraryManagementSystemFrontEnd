@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PARAMS } from '../params';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
@@ -11,14 +12,23 @@ import { UserService } from '../user.service';
 export class CreateUserComponent implements OnInit {
 
   user : User = new User();
+  admin : User;
+  aid : number ;
 
 
-
-  constructor(private userService:UserService,
-    private route:Router) {}
+  constructor(
+    private userService:UserService,
+    private router:Router,
+    private route:ActivatedRoute) {}
 
   ngOnInit(): void {
-  
+    this.aid = this.route.snapshot.params['aid'];
+    this.userService.getUserByID(this.aid).subscribe(data => {
+      this.admin = data;
+      PARAMS.setNavParams(1,this.admin);
+      PARAMS.loginStatus = true;
+
+    } , error => console.log(error));
   }
 
   saveUser(){
@@ -30,7 +40,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   goToUsersList(){
-    this.route.navigate(['/users']);
+    this.router.navigate(['/manageusers',this.aid]);
   }
 
   onSubmit(){

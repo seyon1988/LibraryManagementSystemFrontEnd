@@ -8,15 +8,15 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  {path: 'users' , component: UserListComponent},
+  {path: 'manageusers/:aid' , component: UserListComponent},
   {path: 'welcome' , component: WelcomeComponent},
-  {path: 'member/:id' , component: WelcomeComponent},
+  {path: 'member/:mid' , component: WelcomeComponent},
   {path: 'login' , component: LoginComponent},
   {path: 'createuser' , component: CreateUserComponent},
   //{path: '' , redirectTo:'users' , pathMatch:'full'},
   {path: '' , redirectTo:'welcome' , pathMatch:'full'},
-  {path: 'updateuser/:id' , component: UpdateUserComponent},
-  {path: 'viewuser/:id' , component: ViewUserComponent},
+  {path: 'updateuser/:aid/:uid' , component: UpdateUserComponent},
+  {path: 'viewuser/:aid/:uid' , component: ViewUserComponent},
   {path: 'validatecredentials/:email/:password:' , component: ViewUserComponent}
 ];
 

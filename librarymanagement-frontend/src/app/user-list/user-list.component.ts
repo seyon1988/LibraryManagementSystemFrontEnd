@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PARAMS } from '../params';
 import { User } from "../user"
 import { UserService } from "../user.service"
 @Component({
@@ -9,10 +10,14 @@ import { UserService } from "../user.service"
 })
 export class UserListComponent implements OnInit {
 
+  admin:User;
   users:User[];
+  aid:number;
 
-  constructor(private userService:UserService,
-    private router:Router) { }
+  constructor(
+    private userService:UserService,
+    private router:Router,
+    private route:ActivatedRoute) { }
 
   ngOnInit(): void {
 
@@ -20,24 +25,53 @@ export class UserListComponent implements OnInit {
   }
 
   private getUsers(){
-    console.log("test\ntest");
+    this.aid = this.route.snapshot.params['aid'];
+    this.userService.getUserByID(this.aid).subscribe(data => {
+      this.admin = data;
+      PARAMS.setNavParams(1,this.admin);
+      PARAMS.loginStatus = true;
+
+    } , error => console.log(error));
     this.userService.getUserList(). subscribe(data => {
       this.users = data;
     });
   }
 
-  updateUser(id :number){
-    this.router.navigate(['updateuser',id]);
+  updateUser(aid:number , uid :number){
+    this.router.navigate(['updateuser',aid,uid]);
   }
 
-  deleteUser(id :number){
-    this.userService.deleteUser(id). subscribe(data => {
+  deleteUser(uid :number){
+    this.userService.deleteUser(uid). subscribe(data => {
       console.log(data);
       this.getUsers();
     });
   }
 
-  viewUser(id :number){
-    this.router.navigate(['viewuser',id]);
+  viewUser( aid:number , uid :number ){
+    this.router.navigate(['viewuser' , aid , uid]);
   }
+
+
+  login(){
+    PARAMS.loginStatus=false;
+    PARAMS.setNavParams(0,this.admin);
+    this.router.navigate(['welcome']); //signing out
+  }
+
+  manageUsers(){
+    this.router.navigate(['/manageusers',this.aid]);
+  }
+
+  goHome(){
+    this.router.navigate(['member',this.aid]);
+  }
+
+  getLoginIdTxt(){return PARAMS.strLoginID};
+  getMyLoansTxt(){return PARAMS.strMyLoans};
+  getManageUsersTxt(){return PARAMS.strManageUsers};
+  getManageBoosTxt(){return PARAMS.strManageBooks};
+  getManageLendingTxt(){return PARAMS.strManageLending};
+
+
 }
