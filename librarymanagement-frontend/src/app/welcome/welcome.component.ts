@@ -16,7 +16,7 @@ export class WelcomeComponent implements OnInit {
   user:User;
   mid:number;
 
-
+  bill:Boolean = false;
   signedin: Boolean;
   url_identifier : String;
 
@@ -72,8 +72,6 @@ export class WelcomeComponent implements OnInit {
   }
 
 
-  viewBooks(){}
-  myLoans(){}
 
 
   manageUsers(){
@@ -84,8 +82,21 @@ export class WelcomeComponent implements OnInit {
     this.router.navigate(['member',this.mid]);
   }
 
-  manageBooks(){}
-  manageLending(){}
+  manageBooks(){
+    this.router.navigate(['manageliteratures',this.mid]);
+  }
+  
+  manageLending(){
+
+  }
+
+  goToMyLoans(){
+
+  }
+
+  viewBooks(){
+    
+  }
 
   getLoginIdTxt(){return PARAMS.strLoginID};
   getMyLoansTxt(){return PARAMS.strMyLoans};

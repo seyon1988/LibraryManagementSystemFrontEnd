@@ -29,9 +29,10 @@
       </li>&nbsp;&nbsp;
   
   
-
+  
+  
       <li >
-        <a type="button"  click="goToMyLoans()" class="nav-link">
+        <a type="button" (click)="goToMyLoans()"  class="nav-link">
             <div style="color: white; font-size: 20px">
               {{getMyLoansTxt()}}</div></a>
       </li>&nbsp;&nbsp;
@@ -48,7 +49,7 @@
   
   
       <li >
-        <a type="button"   class="nav-link">
+        <a type="button" (click)="manageBooks()"  class="nav-link">
             <div style="color: white; font-size: 20px">
               {{getManageBoosTxt()}}</div></a>
       </li>&nbsp;&nbsp;
@@ -56,7 +57,7 @@
   
   
       <li >
-        <a type="button"  (click)="manageLending()"  class="nav-link">
+        <a type="button" (click)="manageLending()"  class="nav-link">
             <div style="color: white; font-size: 20px">
               {{getManageLendingTxt()}}</div></a>
       </li>&nbsp;&nbsp;
@@ -70,47 +71,58 @@
 
 
 <div class="col-md-8 offser-md-3" style="margin-top:100px; margin-left: 50px;">
-    <h3 class="display-5" >Create User</h3> 
+    <h3 class="display-5" >Update Literature</h3> 
     <form  (ngSubmit) = "onSubmit()">
     
     
         <div class="form-group">
-            <label >First Name</label>
-            <input type="text" class="form-control" id="firstName" required   [(ngModel)]="user.firstName" name="firstName">
+            <label >Title</label>
+            <input type="text" class="form-control" id="title" required   [(ngModel)]="literature.title" name="title">
         </div>
       
         <div class="form-group">
-            <label >Last Name</label>
-            <input type="text" class="form-control" id="lastName" required [(ngModel)]="user.lastName" name="lastName">
+            <label >Author</label>
+            <input type="text" class="form-control" id="author" required [(ngModel)]="literature.author" name="author">
         </div>
         
         <div class="form-group">
-            <label>Role</label>
+            <label>Category</label>
             <select class="form-control" (change)="selectChangeHandler($event)">
-                <option value="Student">Student</option>
-                <option value="Librarian">Librarian</option>
+                <option value="Book">Book</option>
+                <option value="Monthly Magazine">Monthly Magazine</option>
+                <option value="Daily Magazine">Daily Magazine</option>
+                <option value="Weekly Magazine">Weekly Magazine</option>
+                <option value="Novel">Novel</option>
+                <option value="CD-DVD">CD-DVD</option>
             </select>
         </div>
-
+        
 
         <div class="form-group">
-            <label >Email ID</label>
-            <input type="text" class="form-control" id="emailID" required [(ngModel)]="user.emailID" name="emailID">
+            <label >Issued Date</label>
+            <input type="text" class="form-control" id="issuedDate" required [(ngModel)]="literature.issuedDate" name="issuedDate">
         </div>
 
         
         <div class="form-group">
-            <label >Password</label>
-            <input type="text" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
+            <label >ISBN</label>
+            <input type="text" class="form-control" id="isbn" required [(ngModel)]="literature.isbn" name="isbn">
         </div>
+
 
 
 
         <div class="form-group">
-            <label >Book Quota</label>
-            <input type="text" class="form-control" id="bookQuota" required [(ngModel)]="user.bookQuota" name="bookQuota">
-        </div>
-    
+          <label >Total Books Purchased</label>
+          <input type="text" class="form-control" id="totalBooks" required [(ngModel)]="literature.totalBooks" name="totalBooks">
+      </div>
+
+      
+      <div class="form-group">
+          <label >Already Lended Books</label>
+          <input type="text" class="form-control" id="lendedBooks" required [(ngModel)]="literature.lendedBooks" name="lendedBooks">
+      </div>
+
 
 
         <button type="submit" class="btn btn-success">Submit</button>
@@ -118,9 +130,4 @@
     
     </form>
     </div>
-    
-
-
-
-
     

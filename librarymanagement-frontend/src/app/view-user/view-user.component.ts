@@ -22,12 +22,12 @@ export class ViewUserComponent implements OnInit {
   aid:number;
 
   constructor(private userService:UserService,
-    private router:ActivatedRoute,
-    private route:Router) { }
+    private route:ActivatedRoute,
+    private router:Router) { }
 
   ngOnInit(): void {
-    this.uid = this.router.snapshot.params['uid'];
-    this.aid = this.router.snapshot.params['aid'];
+    this.uid = this.route.snapshot.params['uid'];
+    this.aid = this.route.snapshot.params['aid'];
 
     this.userService.getUserByID(this.uid).subscribe(data => {
       this.user = data;
@@ -44,7 +44,7 @@ export class ViewUserComponent implements OnInit {
 
   
   updateUser(aid:number , uid :number){
-    this.route.navigate(['updateuser',aid,uid]);
+    this.router.navigate(['updateuser',aid,uid]);
   }
 
   deleteUser(uid :number){
@@ -56,9 +56,8 @@ export class ViewUserComponent implements OnInit {
   }
 
   goBack(){
-    this.route.navigate(['manageusers',this.aid]);
+    this.router.navigate(['manageusers',this.aid]);
   }
-
 
 
 
@@ -67,19 +66,19 @@ export class ViewUserComponent implements OnInit {
 
 
   viewUser(uid :number){
-    this.route.navigate(['viewuser',uid]);
+    this.router.navigate(['viewuser',uid]);
   }
 
 
   login(){
     PARAMS.loginStatus=false;
     PARAMS.setNavParams(0,this.admin);
-    this.route.navigate(['welcome']); //signing out
+    this.router.navigate(['welcome']); //signing out
   }
 
 
   goHome(){
-    this.route.navigate(['member',this.aid]);
+    this.router.navigate(['member',this.aid]);
   }
 
   getLoginIdTxt(){return PARAMS.strLoginID};
@@ -90,8 +89,19 @@ export class ViewUserComponent implements OnInit {
 
 
 
+  manageBooks(){
+    this.router.navigate(['manageliteratures',this.aid]);
+  }
+  
+  goToMyLoans(){
+    
+  }
 
+  manageLending(){
 
+  }
 
-
+  viewBooks(){
+    
+  }
 }

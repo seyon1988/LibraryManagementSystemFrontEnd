@@ -11,6 +11,9 @@ import { UpdateUserComponent } from './update-user/update-user.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './login/login.component';
+import { LiteratureListComponent } from './literature-list/literature-list.component';
+import { CreateLiteratureComponent } from './create-literature/create-literature.component';
+import { UpdateLiteratureComponent } from './update-literature/update-literature.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,9 @@ import { LoginComponent } from './login/login.component';
     ViewUserComponent,
     WelcomeComponent,
     LoginComponent,
+    LiteratureListComponent,
+    CreateLiteratureComponent,
+    UpdateLiteratureComponent,
   ],
   imports: [
     BrowserModule,

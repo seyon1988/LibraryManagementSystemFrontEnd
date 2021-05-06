@@ -2,28 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PARAMS } from '../params';
 import { User } from '../user';
+import { Literature } from '../literature';
 import { UserService } from '../user.service';
-
+import { LiteratureService } from '../literature-service';
 
 @Component({
-  
-  selector: 'app-create-user',
-  templateUrl: './create-user.component.html',
-  styleUrls: ['./create-user.component.css']
+  selector: 'app-create-literature',
+  templateUrl: './create-literature.component.html',
+  styleUrls: ['./create-literature.component.css']
 })
-export class CreateUserComponent implements OnInit {
+export class CreateLiteratureComponent implements OnInit {
 
-
-  user : User = new User();
-  admin : User;
+  literature : Literature = new Literature();
+  admin : User = new User();
   aid : number ;
 
 
   constructor(
+    private literaturerService:LiteratureService,
     private userService:UserService,
     private router:Router,
     private route:ActivatedRoute) {
-      this.user.role = "Student"
+      this.literature.category = "Student"
       //This value explicitly specified because "Role" selected from change event
     }
 
@@ -36,23 +36,39 @@ export class CreateUserComponent implements OnInit {
     } , error => console.log(error));
   }
 
+
   selectChangeHandler (event: any) {
-    this.user.role = event.target.value;
+    this.literature.category = event.target.value;
   }
-  saveUser(){
-    this.userService.createUser(this.user).subscribe(data => {
+  
+  saveLiterature(){
+    console.log("ID = " + this.literature.id);
+
+    this.literaturerService.createLiterature(this.literature).subscribe(data => {
       console.log(data);
-      this.goToUsersList(); 
+      this.manageBooks(); 
     },
     error => console.log(error));
   }
 
-  goToUsersList(){
-    this.router.navigate(['/manageusers',this.aid]);
+  goToMyLoans(){
+    
   }
 
+  manageLending(){
+
+  }
+
+  viewBooks(){
+    
+  }
+
+  manageBooks(){
+    this.router.navigate(['manageliteratures',this.aid]);
+  }
+  
   onSubmit(){
-    this.saveUser();
+    this.saveLiterature();
   }
 
 
@@ -67,22 +83,11 @@ export class CreateUserComponent implements OnInit {
     this.router.navigate(['welcome']); //signing out
   }
 
-  goToMyLoans(){
-    
-  }
-  
-  manageLending(){
-
-  }
 
   goHome(){
     this.router.navigate(['member',this.aid]);
   }
 
-  viewBooks(){
-
-  }
-  
   getLoginIdTxt(){return PARAMS.strLoginID};
   getMyLoansTxt(){return PARAMS.strMyLoans};
   getManageUsersTxt(){return PARAMS.strManageUsers};

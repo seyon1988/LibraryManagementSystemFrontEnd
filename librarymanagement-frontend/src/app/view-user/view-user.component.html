@@ -28,7 +28,7 @@
   
   
       <li>
-        <a type="button" class="nav-link">
+        <a type="button" (click)="viewBooks()" class="nav-link">
             <div style="color: white; font-size: 20px">View Books</div></a>
       </li>&nbsp;&nbsp;
   
@@ -36,7 +36,7 @@
   
   
       <li >
-        <a type="button"   class="nav-link">
+        <a type="button"  (click)="goToMyLoans()" class="nav-link">
             <div style="color: white; font-size: 20px">
               {{getMyLoansTxt()}}</div></a>
       </li>&nbsp;&nbsp;
@@ -53,7 +53,7 @@
   
   
       <li >
-        <a type="button"   class="nav-link">
+        <a type="button" (click)="manageBooks()"  class="nav-link">
             <div style="color: white; font-size: 20px">
               {{getManageBoosTxt()}}</div></a>
       </li>&nbsp;&nbsp;
@@ -61,7 +61,7 @@
   
   
       <li >
-        <a type="button"   class="nav-link">
+        <a type="button" (click)="manageLending()"  class="nav-link">
             <div style="color: white; font-size: 20px">
               {{getManageLendingTxt()}}</div></a>
       </li>&nbsp;&nbsp;

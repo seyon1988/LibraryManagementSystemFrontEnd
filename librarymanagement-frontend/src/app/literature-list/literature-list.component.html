@@ -67,35 +67,41 @@
   </nav>
 
 
-
-
-<div style="margin-left: 100px; margin-top: 100px; margin-bottom: 100px;">
-<h2  class="display-5" >Manage Users 
-  <button style="width : 400px;margin-left: 20px;" class="btn bnt-info" (click)="createUser()" class="btn btn-success">
-    Create New User</button></h2> 
-    <br>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Role</th>
-            <th>Email</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor = "let user of users">
-            <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
-            <td>{{user.role}}</td>
-            <td>{{user.emailID}}</td>
-            <td>
-                <button id="eubtn" (click)="updateUser(user.id)" class="btn bnt-info">Update</button>
-                <button id="dubtn" (click)="deleteUser(user.id)" class="btn bnt-danger" style="margin-left: 10px;">Delete</button>
-                <button id="vubtn" (click)="viewUser(user.id)" class="btn bnt-danger" style="margin-left: 10px;">View</button>
-            </td>
-        </tr> 
-    </tbody>
-</table>
-</div>
+  <div style="margin-left: 50px; margin-top: 100px; margin-bottom: 100px;">
+    <h2  class="display-5" >Manage Literature 
+      <button style="width : 400px;margin-left: 20px;" class="btn bnt-info" (click)="createBook()" class="btn btn-success">
+        Add New Material</button></h2> 
+        <br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>ISBN</th>
+                <th>TotalNo</th>
+                <th>AvailableNo</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let literature of literatures">
+                <td>{{literature.id}}</td>
+                <td>{{literature.title}}</td>
+                <td>{{literature.author}}</td>
+                <td>{{literature.category}}</td>
+                <td>{{literature.issuedDate}}</td>
+                <td>{{literature.isbn}}</td>
+                <td>{{literature.totalBooks}}</td>
+                <td>{{getAvailableBooks(literature)}}</td>
+                <td>
+                    <button id="eubtn" (click)="updateLiterature(literature.id)" class="btn bnt-info">Update</button>
+                    <button id="dubtn" (click)="deleteLiterature(literature.id)" class="btn bnt-danger" style="margin-left: 10px;">Delete</button>
+                    <button id="vubtn" (click)="viewLiterature(literature.id)" class="btn bnt-danger" style="margin-left: 10px;">View</button>
+                </td>
+            </tr> 
+        </tbody>
+    </table>
+    </div>

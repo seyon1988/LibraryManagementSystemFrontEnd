@@ -1,16 +1,16 @@
 
-<nav ng-model="foo" class="navbar navbar-expand-sm   navbar-dark" >
+<nav   ng-model="foo" class="navbar navbar-expand-sm   navbar-dark" >
 
 
 
-  <img src="/assets/images/user.png" alt="image">
+  <img  src="/assets/images/user.png" alt="image">
   &nbsp;&nbsp;
   <ul class = "navbar-nav" style="margin-right: 0px; float: right; color: white;">
 
 
 
     <li >
-      <a type="button" (click)="login()"  class="nav-link">
+      <a  type="button" (click)="login()"  class="nav-link">
           <div style="color: white; font-size: 20px">
             {{getLoginIdTxt()}}</div></a>
     </li>&nbsp;&nbsp;
@@ -23,7 +23,7 @@
 
 
     <li>
-      <a type="button" class="nav-link">
+      <a type="button" (click)="viewBooks()" class="nav-link">
           <div style="color: white; font-size: 20px">View Books</div></a>
     </li>&nbsp;&nbsp;
 
@@ -31,7 +31,7 @@
 
 
     <li >
-      <a type="button" (click)="test()"  class="nav-link">
+      <a type="button" (click)="goToMyLoans()"  class="nav-link">
           <div style="color: white; font-size: 20px">
             {{getMyLoansTxt()}}</div></a>
     </li>&nbsp;&nbsp;
@@ -48,7 +48,7 @@
 
 
     <li >
-      <a type="button" (click)="test()"  class="nav-link">
+      <a type="button" (click)="manageBooks()"  class="nav-link">
           <div style="color: white; font-size: 20px">
             {{getManageBoosTxt()}}</div></a>
     </li>&nbsp;&nbsp;
@@ -56,7 +56,7 @@
 
 
     <li >
-      <a type="button" (click)="test()"  class="nav-link">
+      <a type="button" (click)="manageLending()"  class="nav-link">
           <div style="color: white; font-size: 20px">
             {{getManageLendingTxt()}}</div></a>
     </li>&nbsp;&nbsp;
@@ -70,7 +70,3 @@
   <br><br><br><br>
   <img src="/assets/images/lib.jpg" alt="image" width="100%" style="margin:auto; vertical-align: middle;">
   
-
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div> 

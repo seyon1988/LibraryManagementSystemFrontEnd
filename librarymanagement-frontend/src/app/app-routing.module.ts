@@ -6,6 +6,12 @@ import { UserListComponent } from './user-list/user-list.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './login/login.component';
+import { LiteratureListComponent } from './literature-list/literature-list.component';
+import { CreateLiteratureComponent } from './create-literature/create-literature.component';
+import { UpdateLiteratureComponent } from './update-literature/update-literature.component';
+
+
+
 
 const routes: Routes = [
   {path: 'manageusers/:aid' , component: UserListComponent},
@@ -17,7 +23,10 @@ const routes: Routes = [
   {path: '' , redirectTo:'welcome' , pathMatch:'full'},
   {path: 'updateuser/:aid/:uid' , component: UpdateUserComponent},
   {path: 'viewuser/:aid/:uid' , component: ViewUserComponent},
-  {path: 'validatecredentials/:email/:password:' , component: ViewUserComponent}
+  {path: 'manageliteratures/:uid' , component: LiteratureListComponent},
+  {path: 'viewliteratures/:uid' , component: LiteratureListComponent},
+  {path: 'updateliterature/:aid/:lid' , component: UpdateLiteratureComponent},
+  {path: 'createliterature/:aid' , component: CreateLiteratureComponent}
 ];
 
 @NgModule({

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PARAMS } from '../params';
 import { User } from "../user"
 import { UserService } from "../user.service"
+
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -37,8 +38,8 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  updateUser(aid:number , uid :number){
-    this.router.navigate(['updateuser',aid,uid]);
+  updateUser(uid :number){
+    this.router.navigate(['updateuser',this.aid,uid]);
   }
 
   deleteUser(uid :number){
@@ -48,8 +49,8 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  viewUser( aid:number , uid :number ){
-    this.router.navigate(['viewuser' , aid , uid]);
+  viewUser(uid :number ){
+    this.router.navigate(['viewuser' , this.aid , uid]);
   }
 
 
@@ -69,6 +70,22 @@ export class UserListComponent implements OnInit {
 
   createUser(){
     this.router.navigate(['createuser' , this.aid]);
+  }
+
+  manageBooks(){
+    this.router.navigate(['manageliteratures',this.aid]);
+  }
+
+  goToMyLoans(){
+
+  }
+
+  manageLending(){
+
+  }
+  
+  viewBooks(){
+    
   }
 
   getLoginIdTxt(){return PARAMS.strLoginID};

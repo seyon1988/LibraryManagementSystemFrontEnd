@@ -45,8 +45,7 @@ export class UpdateUserComponent implements OnInit  {
   
       } , error => console.log(error));
 
-      this.user.role = "Student"
-      //This value explicitly specified because "Role" selected from change event
+
      }
 
 
@@ -72,13 +71,6 @@ export class UpdateUserComponent implements OnInit  {
     this.router.navigate(['updateuser',uid]);
   }
 
-  deleteUser(uid :number){
-    console.log("click");
-    this.userService.deleteUser(uid). subscribe(data => {
-      console.log(data);
-      this.goBack();
-    });
-  }
 
   goBack(){
     console.log("click");
@@ -100,6 +92,23 @@ export class UpdateUserComponent implements OnInit  {
   goHome(){
     this.router.navigate(['member',this.aid]);
   }
+
+  goToMyLoans(){
+    
+  }
+
+  manageLending(){
+
+  }
+
+  viewBooks(){
+    
+  }
+
+  manageBooks(){
+    this.router.navigate(['manageliteratures',this.aid]);
+  }
+
 
   getLoginIdTxt(){return PARAMS.strLoginID};
   getMyLoansTxt(){return PARAMS.strMyLoans};
