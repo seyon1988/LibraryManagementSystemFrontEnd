@@ -90,15 +90,6 @@ export class UpdateUserComponent implements OnInit  {
   }
 
 
-
-
-
-
-  viewUser(uid :number){
-    this.router.navigate(['viewuser',uid]);
-  }
-
-
   login(){
     PARAMS.loginStatus=false;
     PARAMS.setNavParams(0,this.admin);

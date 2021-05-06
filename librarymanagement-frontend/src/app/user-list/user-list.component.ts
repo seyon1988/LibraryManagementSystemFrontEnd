@@ -67,6 +67,10 @@ export class UserListComponent implements OnInit {
     this.router.navigate(['member',this.aid]);
   }
 
+  createUser(){
+    this.router.navigate(['createuser' , this.aid]);
+  }
+
   getLoginIdTxt(){return PARAMS.strLoginID};
   getMyLoansTxt(){return PARAMS.strMyLoans};
   getManageUsersTxt(){return PARAMS.strManageUsers};

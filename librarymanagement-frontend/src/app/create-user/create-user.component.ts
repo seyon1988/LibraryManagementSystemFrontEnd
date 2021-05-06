@@ -54,4 +54,33 @@ export class CreateUserComponent implements OnInit {
   onSubmit(){
     this.saveUser();
   }
+
+
+  manageUsers(){
+    this.router.navigate(['/manageusers',this.aid]);
+  }
+
+
+  login(){
+    PARAMS.loginStatus=false;
+    PARAMS.setNavParams(0,this.admin);
+    this.router.navigate(['welcome']); //signing out
+  }
+
+
+  goHome(){
+    this.router.navigate(['member',this.aid]);
+  }
+
+  getLoginIdTxt(){return PARAMS.strLoginID};
+  getMyLoansTxt(){return PARAMS.strMyLoans};
+  getManageUsersTxt(){return PARAMS.strManageUsers};
+  getManageBoosTxt(){return PARAMS.strManageBooks};
+  getManageLendingTxt(){return PARAMS.strManageLending};
+
+
+
+
+
+
 }
