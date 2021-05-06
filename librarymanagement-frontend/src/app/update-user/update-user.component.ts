@@ -45,11 +45,15 @@ export class UpdateUserComponent implements OnInit  {
   
       } , error => console.log(error));
 
+      this.user.role = "Student"
+      //This value explicitly specified because "Role" selected from change event
      }
 
 
 
-
+  selectChangeHandler (event: any) {
+    this.user.role = event.target.value;
+  }
   
 
   ngOnInit(): void {

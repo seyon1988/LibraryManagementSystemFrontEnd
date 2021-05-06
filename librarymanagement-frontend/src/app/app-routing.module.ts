@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'welcome' , component: WelcomeComponent},
   {path: 'member/:mid' , component: WelcomeComponent},
   {path: 'login' , component: LoginComponent},
-  {path: 'createuser' , component: CreateUserComponent},
+  {path: 'createuser/:aid' , component: CreateUserComponent},
   //{path: '' , redirectTo:'users' , pathMatch:'full'},
   {path: '' , redirectTo:'welcome' , pathMatch:'full'},
   {path: 'updateuser/:aid/:uid' , component: UpdateUserComponent},
