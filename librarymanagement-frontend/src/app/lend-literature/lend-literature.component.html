@@ -66,13 +66,46 @@
   </ul>
 </nav>
 <br><br><br>
-<table style="border: 1px solid black; width: 100%; margin-right: 100px;">
+
+<table style="width: 90%; margin: auto;border: 1px solid black;" >
+  <tr>
+    <th style="padding: 5px; padding-left: 10px; padding-right: 10px;">
+      Lend a book to user : <br>Instructions - You came to this page by clicking Lend button on previos user or material.  
+      Your previous selection is alreay appearing here.<br>
+      You can select a new material for selected user or You can select new user for selected material<br>
+      You can also modify both user and material. After selecting user and material click Lend Button at Bottom.<br>
+      To get ID Numbers visit manage users or manage books page
+
+    </th>
+  </tr>
+</table>
+
+<table style="border: 1px solid rgb(255, 255, 255); width: 100%; ">
   <tr>
     <td>
       <br>
-      <table style="width: 60%; margin: auto;border: 1px solid black;" >
+      <table style="width: 80%; margin: auto;border: 1px solid black;" >
       
-      
+        <br>
+        <table style="width: 90%; margin: auto;" >
+          <tr style="border: 1px solid black; text-align: center; font-weight: bold;
+          background: rgb(112, 112, 112); color: white;">
+              <td>Select Material using ID</td>
+          </tr>
+        </table>   
+
+        <br>
+        <table style="width: 90%; margin: auto;" >
+          <tr style="border: 1px solid black; text-align: center; font-weight: bold;
+          background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+              <td>
+                <form ng-controller="formCtrl">     
+                  <input placeholder="You can type a Material ID & set new Material" style="width: 70%;"  type="text" name="name" [(ngModel)]="sLid" />
+                  <button type="button" style="width: 30%;" (click)="selectLiterature(sLid)">Select</button>
+                </form>
+              </td>
+          </tr>
+        </table>
 
         <br>
         <table style="width: 90%; margin: auto;" >
@@ -129,9 +162,38 @@
     
     <td>
 
+
+
+
+      
       <br>
-      <table style="width: 60%; margin: auto;border: 1px solid black;" >
-            <br>
+      <table style="width: 80%; margin: auto;border: 1px solid black;" >
+           
+        
+
+        <br>
+        <table style="width: 90%; margin: auto;" >
+          <tr style="border: 1px solid black; text-align: center; font-weight: bold;
+          background: rgb(112, 112, 112); color: white;">
+              <td>Select User using ID</td>
+          </tr>
+        </table>   
+
+        <br>
+        <table style="width: 90%; margin: auto;" >
+          <tr style="border: 1px solid black; text-align: center; font-weight: bold;
+          background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+              <td>
+                <form ng-controller="formCtrl">     
+                  <input placeholder="You can type a user ID & set new user" style="width: 70%;"  type="text" name="name" [(ngModel)]="sUid" />
+                  <button type="button" style="width: 30%;" (click)="selectUser(sUid)">Select</button>
+                </form>
+              </td>
+          </tr>
+        </table>
+        
+        
+        <br>
             <table style="width: 90%; margin: auto;" >
               <tr style="border: 1px solid black; text-align: center; font-weight: bold;
               background: rgb(83, 161, 161); color: white;">
@@ -187,3 +249,5 @@
   </tr>
   <br>
 </table>
+
+<br><br><br><br>

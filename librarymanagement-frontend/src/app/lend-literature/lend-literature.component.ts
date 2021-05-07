@@ -13,16 +13,29 @@ import { LiteratureService } from '../literature-service';
   templateUrl: './lend-literature.component.html',
   styleUrls: ['./lend-literature.component.css']
 })
+
 export class LendLiteratureComponent implements OnInit {
 
   admin:User;
   aid:number;
-  literature:Literature = new Literature();
+
   lid:number;
+
   user:User = new User();
   uid:number;
 
+  sUid:number;
+  sLid:number;
+
+
+  literature:Literature = new Literature();
+
+
+
   url_identifier:String;
+
+
+  
 
   constructor(
     private literatureService:LiteratureService,
@@ -40,22 +53,29 @@ export class LendLiteratureComponent implements OnInit {
       this.url_identifier = this.router.url.split('/')[1];
       if(this.url_identifier=="lendliteratureu"){
         this.uid = this.route.snapshot.params['uid'];
-        this.userService.getUserByID(this.uid).subscribe(data => {
-          this.user = data;
-          console.log("Data = "+data.firstName)
-          console.log("Admin = "+this.admin.firstName)
-        } , error => console.log(error));
+        this.selectUser(this.uid);
       }else if(this.url_identifier=="lendliteraturel"){
         this.lid = this.route.snapshot.params['lid'];
-        this.literatureService.getLiteratureByID(this.lid).subscribe(data => {
-          this.literature = data;
-          console.log("Data = "+data.title)
-          console.log("Admin = "+this.admin.firstName)
-        } , error => console.log(error));
+        this.selectLiterature(this.lid);
       }
+
     }
 
   ngOnInit(): void {
+  }
+
+
+  selectLiterature(lid:number){
+    this.literatureService.getLiteratureByID(lid).subscribe(data => {
+      this.literature = data;
+      console.log("Data = "+data.title)
+      console.log("Admin = "+this.admin.firstName)
+    } , error => console.log(error));
+  }
+  selectUser(uid:number){
+    this.userService.getUserByID(uid).subscribe(data => {
+      this.user = data;
+    } , error => console.log(error));
   }
 
 
@@ -108,6 +128,9 @@ export class LendLiteratureComponent implements OnInit {
 
   }
   
+
+
+
   getLoginIdTxt(){return PARAMS.strLoginID};
   getMyLoansTxt(){return PARAMS.strMyLoans};
   getManageUsersTxt(){return PARAMS.strManageUsers};
