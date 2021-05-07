@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { LiteratureListComponent } from './literature-list/literature-list.component';
 import { CreateLiteratureComponent } from './create-literature/create-literature.component';
 import { UpdateLiteratureComponent } from './update-literature/update-literature.component';
+import { ViewLiteratureComponent } from './view-literature/view-literature.component';
 
 
 
@@ -26,8 +27,10 @@ const routes: Routes = [
   {path: 'manageliteratures/:uid' , component: LiteratureListComponent},
   {path: 'viewliteratures/:uid' , component: LiteratureListComponent},
   {path: 'updateliterature/:aid/:lid' , component: UpdateLiteratureComponent},
-  {path: 'createliterature/:aid' , component: CreateLiteratureComponent}
+  {path: 'createliterature/:aid' , component: CreateLiteratureComponent},
+  {path: 'viewliterature/:aid/:lid' , component: ViewLiteratureComponent}
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
