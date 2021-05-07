@@ -66,6 +66,10 @@ export class ViewLiteratureComponent implements OnInit {
     this.router.navigate(['welcome']); //signing out
   }
 
+  lendLiterature(){
+    this.router.navigate(['lendliteraturel', this.aid, this.lid]);
+  }
+
   manageUsers(){
     this.router.navigate(['/manageusers',this.aid]);
   }

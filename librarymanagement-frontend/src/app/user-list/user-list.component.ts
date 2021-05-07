@@ -84,6 +84,11 @@ export class UserListComponent implements OnInit {
 
   }
   
+  lendLiterature(uid:number){
+    this.router.navigate(['lendliteratureu', this.aid, uid]);
+  }
+  
+
   viewBooks(){
     
   }

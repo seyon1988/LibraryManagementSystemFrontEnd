@@ -60,6 +60,10 @@ export class ViewUserComponent implements OnInit {
   }
 
 
+  lendLiterature(uid:number){
+    this.router.navigate(['lendliteratureu', this.aid, uid]);
+  }
+  
 
 
 

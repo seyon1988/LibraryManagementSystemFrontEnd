@@ -15,6 +15,7 @@ import { LiteratureListComponent } from './literature-list/literature-list.compo
 import { CreateLiteratureComponent } from './create-literature/create-literature.component';
 import { UpdateLiteratureComponent } from './update-literature/update-literature.component';
 import { ViewLiteratureComponent } from './view-literature/view-literature.component';
+import { LendLiteratureComponent } from './lend-literature/lend-literature.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ViewLiteratureComponent } from './view-literature/view-literature.compo
     CreateLiteratureComponent,
     UpdateLiteratureComponent,
     ViewLiteratureComponent,
+    LendLiteratureComponent,
   ],
   imports: [
     BrowserModule,

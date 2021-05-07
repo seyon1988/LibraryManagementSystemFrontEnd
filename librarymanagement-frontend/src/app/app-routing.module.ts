@@ -10,7 +10,7 @@ import { LiteratureListComponent } from './literature-list/literature-list.compo
 import { CreateLiteratureComponent } from './create-literature/create-literature.component';
 import { UpdateLiteratureComponent } from './update-literature/update-literature.component';
 import { ViewLiteratureComponent } from './view-literature/view-literature.component';
-
+import { LendLiteratureComponent } from './lend-literature/lend-literature.component'
 
 
 
@@ -28,7 +28,9 @@ const routes: Routes = [
   {path: 'viewliteratures/:uid' , component: LiteratureListComponent},
   {path: 'updateliterature/:aid/:lid' , component: UpdateLiteratureComponent},
   {path: 'createliterature/:aid' , component: CreateLiteratureComponent},
-  {path: 'viewliterature/:aid/:lid' , component: ViewLiteratureComponent}
+  {path: 'viewliterature/:aid/:lid' , component: ViewLiteratureComponent},
+  {path: 'lendliteratureu/:aid/:uid' , component: LendLiteratureComponent},
+  {path: 'lendliteraturel/:aid/:lid' , component: LendLiteratureComponent}
 ];
 
 
