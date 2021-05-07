@@ -3,66 +3,187 @@
 
 
 
-    <img src="/assets/images/user.png" alt="image">
-    &nbsp;&nbsp;
-    <ul class = "navbar-nav" style="margin-right: 0px; float: right; color: white;">
-  
-  
-  
-      <li >
-        <a type="button" (click)="login()"  class="nav-link">
-            <div style="color: white; font-size: 20px">
-              {{getLoginIdTxt()}}</div></a>
-      </li>&nbsp;&nbsp;
-      
-      <li >
-        <a type="button" (click)="goHome()"  class="nav-link">
-            <div style="color: white; font-size: 20px">
-              Home</div></a>
-      </li>&nbsp;&nbsp;
-  
-  
-      <li>
-        <a type="button" (click)="viewBooks()" class="nav-link">
-            <div style="color: white; font-size: 20px">View Books</div></a>
-      </li>&nbsp;&nbsp;
-  
-  
-  
-  
-      <li >
-        <a type="button" (click)="goToMyLoans()"  class="nav-link">
-            <div style="color: white; font-size: 20px">
-              {{getMyLoansTxt()}}</div></a>
-      </li>&nbsp;&nbsp;
-  
-  
-  
-  
-      <li >
-        <a type="button" (click)="manageUsers()"  class="nav-link">
-            <div style="color: white; font-size: 20px">
-              {{getManageUsersTxt()}}</div></a>
-      </li>&nbsp;&nbsp;
-  
-  
-  
-      <li >
-        <a type="button" (click)="manageBooks()"  class="nav-link">
-            <div style="color: white; font-size: 20px">
-              {{getManageBoosTxt()}}</div></a>
-      </li>&nbsp;&nbsp;
-  
-  
-  
-      <li >
-        <a type="button" (click)="manageLending()"  class="nav-link">
-            <div style="color: white; font-size: 20px">
-              {{getManageLendingTxt()}}</div></a>
-      </li>&nbsp;&nbsp;
-  
-  
-  
-    </ul>
-  </nav>
+  <img src="/assets/images/user.png" alt="image">
+  &nbsp;&nbsp;
+  <ul class = "navbar-nav" style="margin-right: 0px; float: right; color: white;">
 
+
+
+    <li >
+      <a type="button" (click)="login()"  class="nav-link">
+          <div style="color: white; font-size: 20px">
+            {{getLoginIdTxt()}}</div></a>
+    </li>&nbsp;&nbsp;
+    
+    <li >
+      <a type="button" (click)="goHome()"  class="nav-link">
+          <div style="color: white; font-size: 20px">
+            Home</div></a>
+    </li>&nbsp;&nbsp;
+
+
+    <li>
+      <a type="button" (click)="viewBooks()" class="nav-link">
+          <div style="color: white; font-size: 20px">View Books</div></a>
+    </li>&nbsp;&nbsp;
+
+
+
+
+    <li >
+      <a type="button" (click)="goToMyLoans()"  class="nav-link">
+          <div style="color: white; font-size: 20px">
+            {{getMyLoansTxt()}}</div></a>
+    </li>&nbsp;&nbsp;
+
+
+
+
+    <li >
+      <a type="button" (click)="manageUsers()"  class="nav-link">
+          <div style="color: white; font-size: 20px">
+            {{getManageUsersTxt()}}</div></a>
+    </li>&nbsp;&nbsp;
+
+
+
+    <li >
+      <a type="button" (click)="manageBooks()"  class="nav-link">
+          <div style="color: white; font-size: 20px">
+            {{getManageBoosTxt()}}</div></a>
+    </li>&nbsp;&nbsp;
+
+
+
+    <li >
+      <a type="button" (click)="manageLending()"  class="nav-link">
+          <div style="color: white; font-size: 20px">
+            {{getManageLendingTxt()}}</div></a>
+    </li>&nbsp;&nbsp;
+
+
+
+  </ul>
+</nav>
+<br><br><br>
+<table style="border: 1px solid black; width: 100%; margin-right: 100px;">
+  <tr>
+    <td>
+      <br>
+      <table style="width: 60%; margin: auto;border: 1px solid black;" >
+      
+      
+
+        <br>
+        <table style="width: 90%; margin: auto;" >
+          <tr style="border: 1px solid black; text-align: center; font-weight: bold;
+          background: rgb(83, 161, 161); color: white;">
+              <td>Literature Details</td>
+          </tr>
+        </table>
+
+        <table style="width: 90%; margin: auto;" >
+
+          <br>
+          <tr style="border: 1px solid black; ">
+              <td>&nbsp;&nbsp;&nbsp;Material ID</td><td>{{literature.id}}</td>
+          </tr>
+          <br>
+          <tr style="border: 1px solid black; ">
+              <td>&nbsp;&nbsp;&nbsp;Title</td><td>{{literature.title}}</td>
+          </tr>
+          <br>
+          <tr style="border: 1px solid black; ">
+              <td>&nbsp;&nbsp;&nbsp;Author</td><td>{{literature.author}}</td>
+          </tr>
+          <br>
+          <tr style="border: 1px solid black;" >
+              <td>&nbsp;&nbsp;&nbsp;Category</td><td>{{literature.category}}</td>
+          </tr>
+          <br>
+          <tr style="border: 1px solid black;" >
+              <td>&nbsp;&nbsp;&nbsp;Date</td><td>{{literature.issuedDate}}</td>
+          </tr>
+          <br>
+          <tr style="border: 1px solid black;" >
+              <td>&nbsp;&nbsp;&nbsp;Total Books</td><td>{{literature.totalBooks}}</td>
+          </tr>
+          <br>
+          <tr style="border: 1px solid black;" >
+              <td>&nbsp;&nbsp;&nbsp;Available Books</td><td>{{getAvailableBooks(literature)}}</td>
+          </tr>
+          <br>
+
+          
+
+      </table>
+
+
+      </table>
+
+
+
+
+    </td>
+    
+    
+    <td>
+
+      <br>
+      <table style="width: 60%; margin: auto;border: 1px solid black;" >
+            <br>
+            <table style="width: 90%; margin: auto;" >
+              <tr style="border: 1px solid black; text-align: center; font-weight: bold;
+              background: rgb(83, 161, 161); color: white;">
+                  <td>User Details</td>
+              </tr>
+          </table>
+
+          <table style="width: 90%; margin: auto;" >
+
+            <br>
+
+            <tr style="border: 1px solid black;" >
+                <td>&nbsp;&nbsp;&nbsp;User ID</td><td>{{user.id}}</td>
+            </tr>
+
+            <br>
+            <tr style="border: 1px solid black; ">
+                <td>&nbsp;&nbsp;&nbsp;First Name</td><td>{{user.firstName}}</td>
+            </tr>
+            <br>
+            <tr style="border: 1px solid black; ">
+                <td>&nbsp;&nbsp;&nbsp;Last Name</td><td>{{user.lastName}}</td>
+            </tr>
+            <br>
+            <tr style="border: 1px solid black; ">
+                <td>&nbsp;&nbsp;&nbsp;Email</td><td>{{user.emailID}}</td>
+            </tr>
+            <br>
+            <tr style="border: 1px solid black;" >
+                <td>&nbsp;&nbsp;&nbsp;Role</td><td>{{user.role}}</td>
+            </tr>
+            <br>
+            <tr style="border: 1px solid black;" >
+                <td>&nbsp;&nbsp;&nbsp;Book Quota</td><td>{{user.bookQuota}}</td>
+            </tr>
+            <br>
+            <tr style="border: 1px solid black;" >
+                <td>&nbsp;&nbsp;&nbsp;Utilized Quota</td><td>{{user.utilizedQuota}}</td>
+            </tr>
+
+            <br>
+
+          </table>
+      
+      
+      </table>
+
+
+
+
+    </td>
+    
+  </tr>
+  <br>
+</table>

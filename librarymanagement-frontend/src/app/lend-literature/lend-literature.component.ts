@@ -66,6 +66,9 @@ export class LendLiteratureComponent implements OnInit {
   onSubmit(){
 
   }
+  getAvailableBooks(l : Literature){
+    return (l.totalBooks - l.lendedBooks);
+  }
 
  
 
