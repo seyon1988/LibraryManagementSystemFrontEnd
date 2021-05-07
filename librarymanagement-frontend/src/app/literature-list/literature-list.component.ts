@@ -64,6 +64,10 @@ export class LiteratureListComponent implements OnInit {
     this.router.navigate(['viewliterature',this.aid, lid]);
   }
 
+
+  lendLiterature(lid:number){
+
+  }
   createBook(){
     this.router.navigate(['createliterature',this.aid]);
   }
