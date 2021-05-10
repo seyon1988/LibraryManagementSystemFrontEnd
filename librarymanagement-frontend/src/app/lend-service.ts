@@ -9,6 +9,7 @@ import { Lend } from './lend';
 export class LendService {
 
   private baseURL = "http://localhost:8080/api/v1/lends";
+  
   constructor(private httpClient:HttpClient) { console.log('Constructor called'); }
   
   getLendList(): Observable<Lend[]>{
@@ -20,7 +21,7 @@ export class LendService {
   }
 
   getLendByID(id: number):Observable<Lend>{
-      return this.httpClient.get<Lend>(`${this.baseURL}/${id}`);
+      return this.httpClient.get<Lend>(`${this.baseURL}/'user'/${id}`);
   }
 
   updateLend( id:number , lend:Lend): Observable<Object>{
@@ -31,5 +32,9 @@ export class LendService {
     return this.httpClient.delete(`${this.baseURL}/${id}`);
   }
 
+
+  getLendByUserID(userID: String):Observable<Lend>{
+    return this.httpClient.get<Lend>(`${this.baseURL}/${userID}`);
+  }
 }
  
