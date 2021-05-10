@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PARAMS } from '../params';
 import { User } from "../user";
 import { Literature } from "../literature"
+import { Lend } from "../lend";
 import { UserService } from "../user.service"
 import { LiteratureService } from '../literature-service';
-
+import { LendService } from '../lend-service';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class LendLiteratureComponent implements OnInit {
   sLid:number;
 
 
+  lend:Lend = new Lend();
   literature:Literature = new Literature();
 
 
@@ -38,8 +40,9 @@ export class LendLiteratureComponent implements OnInit {
   
 
   constructor(
-    private literatureService:LiteratureService,
     private userService:UserService,
+    private literatureService:LiteratureService,
+    private lendService:LendService,
     private router:Router,
     private route:ActivatedRoute) { 
 
@@ -78,6 +81,19 @@ export class LendLiteratureComponent implements OnInit {
     } , error => console.log(error));
   }
 
+  addToRegister(){
+    this.lend.userID = this.user.id;
+    this.lend.materialID = this.literature.id;
+    this.lendService.createLend(this.lend).subscribe(data => {
+      console.log(data);
+    }, error => console.log(error));
+    console.log("hhere = "+this.literature.lendedBooks);
+    this.literature.lendedBooks++;
+    console.log("hhere aft = "+this.literature.lendedBooks);
+    this.literatureService.updateLiterature(this.lid,this.literature).subscribe(data => {
+      console.log(data);
+    } , error => console.log(error));
+  }
 
   goToUsersList(){
     this.router.navigate(['/manageusers',this.aid]);

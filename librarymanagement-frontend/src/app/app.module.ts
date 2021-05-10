@@ -16,6 +16,7 @@ import { CreateLiteratureComponent } from './create-literature/create-literature
 import { UpdateLiteratureComponent } from './update-literature/update-literature.component';
 import { ViewLiteratureComponent } from './view-literature/view-literature.component';
 import { LendLiteratureComponent } from './lend-literature/lend-literature.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -30,14 +31,16 @@ import { LendLiteratureComponent } from './lend-literature/lend-literature.compo
     CreateLiteratureComponent,
     UpdateLiteratureComponent,
     ViewLiteratureComponent,
-    LendLiteratureComponent,
+    LendLiteratureComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
