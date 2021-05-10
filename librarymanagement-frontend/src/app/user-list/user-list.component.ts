@@ -34,7 +34,7 @@ export class UserListComponent implements OnInit {
 
     } , error => console.log(error));
     this.userService.getUserList(). subscribe(data => {
-      this.users = data;
+      this.users = data.sort((a,b)=> a.id-b.id);
     });
   }
 

@@ -7,7 +7,9 @@ import { Lend } from "../lend";
 import { UserService } from "../user.service"
 import { LiteratureService } from '../literature-service';
 import { LendService } from '../lend-service';
-
+import { ModelComponent} from '../model/model.component'
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-lend-literature',
@@ -35,11 +37,11 @@ export class LendLiteratureComponent implements OnInit {
 
 
   url_identifier:String;
-
-
+  mc:ModelComponent;
   
 
   constructor(
+    public matDialog: MatDialog,
     private userService:UserService,
     private literatureService:LiteratureService,
     private lendService:LendService,
@@ -67,6 +69,14 @@ export class LendLiteratureComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openModel(title:String,text:String) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "model-component";
+    dialogConfig.height = "350px";
+    dialogConfig.data = {modelTitle:title,modelText:text};
+    const modelDialog = this.matDialog.open(ModelComponent, dialogConfig);
+  }
 
   selectLiterature(lid:number){
     this.literatureService.getLiteratureByID(lid).subscribe(data => {
@@ -82,6 +92,19 @@ export class LendLiteratureComponent implements OnInit {
   }
 
   addToRegister(){
+    if(this.user.utilizedQuota>=this.user.bookQuota){
+      const title = "Book Quota of user exceeded";
+      const text = "User has allready borrowed "+this.user.utilizedQuota
+      +" books of his maximum book limit of "+this.user.bookQuota;
+      this.openModel(title,text);
+      return;
+    }
+    if(this.literature.lendedBooks>=this.literature.totalBooks){
+      const title = "Book Unavailable";
+      const text = "All available books are lended";
+      this.openModel(title,text);
+      return;
+    }
     this.lend.userID = this.user.id;
     this.lend.materialID = this.literature.id;
     this.lendService.createLend(this.lend).subscribe(data => {

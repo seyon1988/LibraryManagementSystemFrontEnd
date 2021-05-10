@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -17,6 +19,10 @@ import { UpdateLiteratureComponent } from './update-literature/update-literature
 import { ViewLiteratureComponent } from './view-literature/view-literature.component';
 import { LendLiteratureComponent } from './lend-literature/lend-literature.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ModelComponent } from './model/model.component';
+import { MatButtonModule } from '@angular/material/button';
+
+
 
 @NgModule({
   declarations: [
@@ -31,7 +37,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     CreateLiteratureComponent,
     UpdateLiteratureComponent,
     ViewLiteratureComponent,
-    LendLiteratureComponent
+    LendLiteratureComponent,
+    ModelComponent
   ],
   imports: [
     BrowserModule,
@@ -40,9 +47,13 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
     MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModelComponent]
 })
 export class AppModule { }

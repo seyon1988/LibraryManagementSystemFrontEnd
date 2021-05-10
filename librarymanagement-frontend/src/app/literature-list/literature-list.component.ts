@@ -44,7 +44,8 @@ export class LiteratureListComponent implements OnInit {
 
   getLiteratures(){
     this.literatureService.getLiteratureList(). subscribe(data => {
-      this.literatures = data;
+      
+      this.literatures = data.sort((a,b)=> a.id-b.id);
     });
   }
 
