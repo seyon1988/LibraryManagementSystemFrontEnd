@@ -11,6 +11,7 @@ import { CreateLiteratureComponent } from './create-literature/create-literature
 import { UpdateLiteratureComponent } from './update-literature/update-literature.component';
 import { ViewLiteratureComponent } from './view-literature/view-literature.component';
 import { LendLiteratureComponent } from './lend-literature/lend-literature.component'
+import { MyloansComponent } from './myloans/myloans.component'
 
 
 
@@ -30,7 +31,8 @@ const routes: Routes = [
   {path: 'createliterature/:aid' , component: CreateLiteratureComponent},
   {path: 'viewliterature/:aid/:lid' , component: ViewLiteratureComponent},
   {path: 'lendliteratureu/:aid/:uid' , component: LendLiteratureComponent},
-  {path: 'lendliteraturel/:aid/:lid' , component: LendLiteratureComponent}
+  {path: 'lendliteraturel/:aid/:lid' , component: LendLiteratureComponent},
+  {path: 'myloans/:mid' , component: MyloansComponent}
 ];
 
 

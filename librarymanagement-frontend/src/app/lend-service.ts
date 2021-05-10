@@ -21,7 +21,7 @@ export class LendService {
   }
 
   getLendByID(id: number):Observable<Lend>{
-      return this.httpClient.get<Lend>(`${this.baseURL}/'user'/${id}`);
+      return this.httpClient.get<Lend>(`${this.baseURL}/${id}`);
   }
 
   updateLend( id:number , lend:Lend): Observable<Object>{
@@ -34,7 +34,7 @@ export class LendService {
 
 
   getLendByUserID(userID: String):Observable<Lend>{
-    return this.httpClient.get<Lend>(`${this.baseURL}/${userID}`);
+    return this.httpClient.get<Lend>(`${this.baseURL}/'byuserid'/${userID}`);
   }
 }
  

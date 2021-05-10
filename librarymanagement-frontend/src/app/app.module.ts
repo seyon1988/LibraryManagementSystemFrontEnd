@@ -21,6 +21,7 @@ import { LendLiteratureComponent } from './lend-literature/lend-literature.compo
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModelComponent } from './model/model.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MyloansComponent } from './myloans/myloans.component';
 
 
 
@@ -38,7 +39,8 @@ import { MatButtonModule } from '@angular/material/button';
     UpdateLiteratureComponent,
     ViewLiteratureComponent,
     LendLiteratureComponent,
-    ModelComponent
+    ModelComponent,
+    MyloansComponent
   ],
   imports: [
     BrowserModule,

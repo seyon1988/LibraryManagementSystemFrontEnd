@@ -12,7 +12,7 @@ import { UserService } from '../user.service';
 export class WelcomeComponent implements OnInit {
 
 
-
+  public edited = true;
   user:User;
   mid:number;
 
