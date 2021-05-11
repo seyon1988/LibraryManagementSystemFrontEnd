@@ -156,7 +156,7 @@ export class LendLiteratureComponent implements OnInit {
   }
 
   goToMyLoans(){
-    
+    this.router.navigate(['myloans',this.aid]);
   }
   
   manageLending(){

@@ -85,7 +85,7 @@ export class UserListComponent implements OnInit {
   }
 
   goToMyLoans(){
-
+    this.router.navigate(['myloans',this.aid]);
   }
 
   manageLending(){

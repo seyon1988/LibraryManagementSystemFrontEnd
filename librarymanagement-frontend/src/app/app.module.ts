@@ -22,6 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ModelComponent } from './model/model.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MyloansComponent } from './myloans/myloans.component';
+import { ManageLoansComponent } from './manage-loans/manage-loans.component';
 
 
 
@@ -40,7 +41,8 @@ import { MyloansComponent } from './myloans/myloans.component';
     ViewLiteratureComponent,
     LendLiteratureComponent,
     ModelComponent,
-    MyloansComponent
+    MyloansComponent,
+    ManageLoansComponent
   ],
   imports: [
     BrowserModule,

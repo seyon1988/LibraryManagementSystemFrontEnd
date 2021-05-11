@@ -53,7 +53,7 @@ export class ViewLiteratureComponent implements OnInit {
           this.user = data;
           this.p.setUserParameters(data);
           this.lid =this.route.snapshot.params['lid'];
-          if(this.p.isAdmin) this.aid = this.uid;
+          if(this.p.isAdmin) {this.aid = this.uid;this.admin=this.user;}
           this.literatureService.getLiteratureByID(this.lid).subscribe(data => {
             if(this.p.admin) this.enLend = true;
             this.literature = data;
@@ -125,7 +125,7 @@ export class ViewLiteratureComponent implements OnInit {
   }
   
   goToMyLoans(){
-
+    this.router.navigate(['myloans',this.uid]);
   }
   
   manageLending(){

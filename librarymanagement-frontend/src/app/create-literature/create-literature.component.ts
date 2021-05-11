@@ -52,8 +52,9 @@ export class CreateLiteratureComponent implements OnInit {
     error => console.log(error));
   }
 
+
   goToMyLoans(){
-    
+    this.router.navigate(['myloans',this.aid]);
   }
 
   manageLending(){

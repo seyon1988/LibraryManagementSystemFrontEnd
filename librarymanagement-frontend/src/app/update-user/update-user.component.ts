@@ -99,7 +99,7 @@ export class UpdateUserComponent implements OnInit  {
   }
 
   goToMyLoans(){
-    
+    this.router.navigate(['myloans',this.aid]);
   }
 
   manageLending(){

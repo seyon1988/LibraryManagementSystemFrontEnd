@@ -89,7 +89,7 @@ export class MyloansComponent implements OnInit {
   }
   
   goToMyLoans(){
-
+    this.router.navigate(['myloans',this.uid]);
   }
   
   manageLending(){

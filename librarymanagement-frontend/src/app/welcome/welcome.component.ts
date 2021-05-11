@@ -96,7 +96,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   goToMyLoans(){
-
+    this.router.navigate(['myloans',this.mid]);
   }
 
   viewBooks(){

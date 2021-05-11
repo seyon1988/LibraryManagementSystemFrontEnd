@@ -67,11 +67,13 @@ export class LiteratureListComponent implements OnInit {
             this.enLend = true;
             this.enEditDelete = false ;
             this.admin = data;
+            this.user = data;
             this.aid = this.uid;
           }else{
             this.enView = true;
             this.enLend = false;
             this.enEditDelete = false ;
+            this.user = data;
           }
           this.getLiteratures();
         } , error => console.log(error));
@@ -143,7 +145,7 @@ export class LiteratureListComponent implements OnInit {
   }
   
   goToMyLoans(){
-
+    this.router.navigate(['myloans',this.uid]);
   }
   
   manageLending(){

@@ -100,7 +100,7 @@ export class ViewUserComponent implements OnInit {
   }
   
   goToMyLoans(){
-    
+    this.router.navigate(['myloans',this.aid]);
   }
 
   manageLending(){
