@@ -108,6 +108,6 @@ export class ViewUserComponent implements OnInit {
   }
 
   viewBooks(){
-    
+    this.router.navigate(['viewliteratures',this.uid]);
   }
 }

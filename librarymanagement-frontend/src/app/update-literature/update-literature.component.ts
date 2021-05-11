@@ -70,7 +70,7 @@ export class UpdateLiteratureComponent implements OnInit {
   }
 
   viewBooks(){
-    
+    this.router.navigate(['viewliteratures',this.aid]);
   }
 
   manageBooks(){

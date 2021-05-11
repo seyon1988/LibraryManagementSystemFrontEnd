@@ -88,7 +88,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   viewBooks(){
-
+    this.router.navigate(['viewliteratures',this.aid]);
   }
   
 

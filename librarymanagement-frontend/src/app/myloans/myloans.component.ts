@@ -22,7 +22,7 @@ export class MyloansComponent implements OnInit {
   admin:User;
   
   aid:number;
-
+  mid:number;
   lid:number;
 
   user:User = new User();
@@ -49,7 +49,7 @@ export class MyloansComponent implements OnInit {
     private router:Router,
     private route:ActivatedRoute) { 
 
-      this.uid = this.route.snapshot.params['uid'];
+      this.mid = this.route.snapshot.params['mid'];
       this.userService.getUserByID(this.uid).subscribe(data => {
         this.admin = data;
         this.p.setUserParameters(data);
@@ -97,7 +97,7 @@ export class MyloansComponent implements OnInit {
   }
 
   viewBooks(){
-    
+    this.router.navigate(['viewliteratures',this.uid]);
   }
 
 

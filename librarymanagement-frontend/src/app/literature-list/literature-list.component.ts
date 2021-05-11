@@ -13,26 +13,73 @@ import { LiteratureService } from '../literature-service';
 })
 export class LiteratureListComponent implements OnInit {
 
+  fa:boolean=false;
   admin:User;
+  user:User;
 
   literatures:Literature[];
   
   aid:number;
+  uid:number;
+  
+  url_identifier : String;
 
   p:PARAMS = new PARAMS();
+
+  enView:boolean = true;
+  enLend:boolean = false;
+  enEditDelete:boolean = false ;
+
+  litTitle:String = "View Literatures";
+
   constructor(
     private literatureService:LiteratureService,
     private userService:UserService,
     private router:Router,
     private route:ActivatedRoute) {
-    this.aid = this.route.snapshot.params['aid'];
-    this.userService.getUserByID(this.aid).subscribe(data => {
-      this.admin = data;
-      this.p.setUserParameters(data);
-    } , error => console.log(error));
 
-    this.getLiteratures();
+      this.url_identifier = this.router.url.split('/')[1];
 
+
+      if(this.url_identifier=="viewliteratures_"){
+        this.p.logoff();
+        this.litTitle = "View Literatures";
+        this.getLiteratures();
+      }else if(this.url_identifier=="manageliteratures"){
+        this.uid = this.route.snapshot.params['uid'];
+        this.userService.getUserByID(this.uid).subscribe(data => {
+          this.p.setUserParameters(data);
+          this.admin = data;
+          this.user = data;
+          this.enLend = true;
+          this.enEditDelete = true ;
+          this.admin = data;
+          this.aid = this.uid;
+          this.litTitle = "Manage Literatures";
+          this.getLiteratures();
+        } , error => console.log(error));
+      }else if(this.url_identifier=="viewliteratures"){
+        this.uid = this.route.snapshot.params['uid'];
+        this.userService.getUserByID(this.uid).subscribe(data => {
+          this.p.setUserParameters(data);
+          if(this.p.isAdmin){
+            this.enView = true;
+            this.enLend = true;
+            this.enEditDelete = false ;
+            this.admin = data;
+            this.aid = this.uid;
+          }else{
+            this.enView = true;
+            this.enLend = false;
+            this.enEditDelete = false ;
+          }
+          this.getLiteratures();
+        } , error => console.log(error));
+      }
+      
+      
+
+      
 
   }
 
@@ -42,7 +89,6 @@ export class LiteratureListComponent implements OnInit {
 
   getLiteratures(){
     this.literatureService.getLiteratureList(). subscribe(data => {
-      
       this.literatures = data.sort((a,b)=> a.id-b.id);
     });
   }
@@ -61,7 +107,9 @@ export class LiteratureListComponent implements OnInit {
   }
 
   viewLiterature(lid :number ){
-    this.router.navigate(['viewliterature',this.aid, lid]);
+    if(this.url_identifier=="manageliteratures") this.router.navigate(['viewliteraturem',this.aid, lid]);
+    else if(this.p.signedin) this.router.navigate(['viewliterature',this.uid, lid]);
+    else this.router.navigate(['viewliterature_', lid]);
   }
 
 
@@ -103,13 +151,15 @@ export class LiteratureListComponent implements OnInit {
   }
 
   viewBooks(){
-    
+    if(this.p.signedin) this.router.navigate(['viewliteratures',this.uid]);
+    else this.router.navigate(['viewliteratures']);
   }
 
 
 
   goHome(){
-    this.router.navigate(['member',this.aid]);
+    if(this.p.signedin==true) this.router.navigate(['member',this.uid]);
+    else this.router.navigate(['welcome']);
   }
 
   createUser(){

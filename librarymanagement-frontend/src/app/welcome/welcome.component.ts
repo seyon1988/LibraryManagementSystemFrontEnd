@@ -42,7 +42,7 @@ export class WelcomeComponent implements OnInit {
 
     }else if(this.url_identifier=="member"){
       console.log("In member");
-      
+
       this.mid = this.route.snapshot.params['mid'];
       this.userService.getUserByID(this.mid).subscribe(data => {
         this.user = data;
@@ -100,7 +100,8 @@ export class WelcomeComponent implements OnInit {
   }
 
   viewBooks(){
-    
+    if(this.p.signedin) this.router.navigate(['viewliteratures',this.mid]);
+    else this.router.navigate(['viewliteratures_']);
   }
 
 

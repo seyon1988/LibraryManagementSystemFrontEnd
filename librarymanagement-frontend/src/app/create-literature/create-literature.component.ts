@@ -61,7 +61,7 @@ export class CreateLiteratureComponent implements OnInit {
   }
 
   viewBooks(){
-    
+    this.router.navigate(['viewliteratures',this.aid]);
   }
 
   manageBooks(){

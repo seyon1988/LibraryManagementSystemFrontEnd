@@ -25,7 +25,13 @@ export class ViewLiteratureComponent implements OnInit {
 
   aid: number;
   lid:number;
-  
+  uid:number;
+
+
+  enLend:boolean = false;
+  enEditDelete:boolean = false ;
+  url_identifier : String;
+
   literature : Literature = new Literature();
 
   constructor(
@@ -33,16 +39,42 @@ export class ViewLiteratureComponent implements OnInit {
     private userService:UserService,
     private router:Router,
     private route:ActivatedRoute) { 
+      this.url_identifier = this.router.url.split('/')[1];
 
-      this.aid = this.route.snapshot.params['aid'];
-      this.userService.getUserByID(this.aid).subscribe(data => {
-        this.admin = data;
-        this.p.setUserParameters(data);
+      if(this.url_identifier=="viewliterature_"){
+        this.p.logoff();
         this.lid =this.route.snapshot.params['lid'];
         this.literatureService.getLiteratureByID(this.lid).subscribe(data => {
           this.literature = data;
         } , error => console.log(error));
-      } , error => console.log(error));
+      }else if(this.url_identifier=="viewliterature"){
+        this.uid = this.route.snapshot.params['uid'];
+        this.userService.getUserByID(this.uid).subscribe(data => {
+          this.user = data;
+          this.p.setUserParameters(data);
+          this.lid =this.route.snapshot.params['lid'];
+          if(this.p.isAdmin) this.aid = this.uid;
+          this.literatureService.getLiteratureByID(this.lid).subscribe(data => {
+            if(this.p.admin) this.enLend = true;
+            this.literature = data;
+          } , error => console.log(error));
+        } , error => console.log(error));
+      }else if(this.url_identifier=="viewliteraturem"){
+        this.uid = this.route.snapshot.params['uid'];
+        this.userService.getUserByID(this.uid).subscribe(data => {
+          this.user = data;
+          this.p.setUserParameters(data);
+          this.admin = data;
+          this.aid = this.uid;
+          this.lid =this.route.snapshot.params['lid'];
+          this.literatureService.getLiteratureByID(this.lid).subscribe(data => {
+            this.enLend = true;
+            this.enEditDelete = true;
+            this.literature = data;
+          } , error => console.log(error));
+        } , error => console.log(error));
+      }
+
 
 
   }
@@ -51,7 +83,9 @@ export class ViewLiteratureComponent implements OnInit {
   }
 
   goBack(){
-    this.router.navigate(['manageliteratures',this.aid]);
+    if(this.url_identifier=="viewliteraturem")this.router.navigate(['manageliteratures',this.aid]);
+    else if(this.url_identifier=="viewliterature")this.router.navigate(['viewliteratures',this.uid]);
+    else if(this.url_identifier=="viewliterature_")this.router.navigate(['viewliteratures_']);
   }
 
   deleteLiterature(){
@@ -99,13 +133,15 @@ export class ViewLiteratureComponent implements OnInit {
   }
 
   viewBooks(){
-    
+    if(this.p.signedin) this.router.navigate(['viewliteratures',this.uid]);
+    else this.router.navigate(['viewliteratures']);
   }
 
 
 
   goHome(){
-    this.router.navigate(['member',this.aid]);
+    if(this.p.signedin==true) this.router.navigate(['member',this.uid]);
+    else this.router.navigate(['welcome']);
   }
 
   createUser(){

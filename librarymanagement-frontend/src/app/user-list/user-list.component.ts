@@ -98,7 +98,7 @@ export class UserListComponent implements OnInit {
   
 
   viewBooks(){
-    
+    this.router.navigate(['viewliteratures',this.aid]);
   }
 
 

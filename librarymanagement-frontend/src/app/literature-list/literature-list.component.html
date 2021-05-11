@@ -40,8 +40,8 @@
 
 
   <div style="margin-left: 50px; margin-top: 100px; margin-bottom: 100px;">
-    <h2  class="display-5" >Manage Literature 
-      <button style="width : 400px;margin-left: 20px;" class="btn bnt-info" (click)="createBook()" class="btn btn-success">
+    <h2  class="display-5" >{{litTitle}}
+      <button *ngIf="enEditDelete"  style="width : 400px;margin-left: 20px;" class="btn bnt-info" (click)="createBook()" class="btn btn-success">
         Add New Material</button></h2> 
         <br>
     <table class="table table-striped">
@@ -69,10 +69,10 @@
                 <td>{{literature.totalBooks}}</td>
                 <td>{{getAvailableBooks(literature)}}</td>
                 <td>
-                    <button id="eubtn" (click)="updateLiterature(literature.id)" class="btn bnt-info">Update</button>
-                    <button id="dubtn" (click)="deleteLiterature(literature.id)" class="btn bnt-danger" style="margin-left: 10px;">Delete</button>
-                    <button id="vubtn" (click)="viewLiterature(literature.id)" class="btn bnt-danger" style="margin-left: 10px;">View</button>
-                    <button id="lubtn" (click)="lendLiterature(literature.id)" class="btn bnt-danger" style="margin-left: 10px;">Lend</button>
+                    <button *ngIf="enEditDelete"  id="eubtn" (click)="updateLiterature(literature.id)" class="btn bnt-info">Update</button>
+                    <button *ngIf="enEditDelete"  id="dubtn" (click)="deleteLiterature(literature.id)" class="btn bnt-danger" style="margin-left: 10px;">Delete</button>
+                    <button *ngIf="enView"  id="vubtn" (click)="viewLiterature(literature.id)" class="btn bnt-danger" style="margin-left: 10px;">View</button>
+                    <button *ngIf="enLend"  id="lubtn" (click)="lendLiterature(literature.id)" class="btn bnt-danger" style="margin-left: 10px;">Lend</button>
                 </td>
             </tr> 
         </tbody>

@@ -107,7 +107,7 @@ export class UpdateUserComponent implements OnInit  {
   }
 
   viewBooks(){
-    
+    this.router.navigate(['viewliteratures',this.aid]);
   }
 
   manageBooks(){
