@@ -16,16 +16,13 @@ export class ViewLiteratureComponent implements OnInit {
 
 
 
-  user:User = new User();
-  admin:User = new User();
-  mid:number;
-  logintext:String = "Login";
+
   p:PARAMS = new PARAMS();
 
 
-  aid: number;
+
   lid:number;
-  uid:number;
+
 
 
   enLend:boolean = false;
@@ -41,41 +38,25 @@ export class ViewLiteratureComponent implements OnInit {
     private route:ActivatedRoute) { 
       this.url_identifier = this.router.url.split('/')[1];
 
-      if(this.url_identifier=="viewliterature_"){
-        this.p.logoff();
-        this.lid =this.route.snapshot.params['lid'];
-        this.literatureService.getLiteratureByID(this.lid).subscribe(data => {
-          this.literature = data;
-        } , error => console.log(error));
-      }else if(this.url_identifier=="viewliterature"){
-        this.uid = this.route.snapshot.params['uid'];
-        this.userService.getUserByID(this.uid).subscribe(data => {
-          this.user = data;
+      this.lid =this.route.snapshot.params['lid'];
+      this.literatureService.getLiteratureByID(this.lid).subscribe(data => {
+
+        this.literature = data;
+
+        if(this.url_identifier=="viewliterature_"){this.p.logoff();}
+
+        this.userService.getUserByID(this.route.snapshot.params['uid']).subscribe(data => {
           this.p.setUserParameters(data);
-          this.lid =this.route.snapshot.params['lid'];
-          if(this.p.isAdmin) {this.aid = this.uid;this.admin=this.user;}
-          this.literatureService.getLiteratureByID(this.lid).subscribe(data => {
-            if(this.p.admin) this.enLend = true;
-            this.literature = data;
-          } , error => console.log(error));
-        } , error => console.log(error));
-      }else if(this.url_identifier=="viewliteraturem"){
-        this.uid = this.route.snapshot.params['uid'];
-        this.userService.getUserByID(this.uid).subscribe(data => {
-          this.user = data;
-          this.p.setUserParameters(data);
-          this.admin = data;
-          this.aid = this.uid;
-          this.lid =this.route.snapshot.params['lid'];
-          this.literatureService.getLiteratureByID(this.lid).subscribe(data => {
+          if(this.url_identifier=="viewliterature"){
+            if(this.p.isAdmin) this.enLend = true;
+          }else if(this.url_identifier=="viewliteraturem"){
             this.enLend = true;
             this.enEditDelete = true;
-            this.literature = data;
-          } , error => console.log(error));
+          }
         } , error => console.log(error));
-      }
-
-
+      } , error => console.log(error));
+      
+            
 
   }
 
@@ -83,28 +64,25 @@ export class ViewLiteratureComponent implements OnInit {
   }
 
   goBack(){
-    if(this.url_identifier=="viewliteraturem")this.router.navigate(['manageliteratures',this.aid]);
-    else if(this.url_identifier=="viewliterature")this.router.navigate(['viewliteratures',this.uid]);
+    if(this.url_identifier=="viewliteraturem")this.router.navigate(['manageliteratures',this.p.aid]);
+    else if(this.url_identifier=="viewliterature")this.router.navigate(['viewliteratures',this.p.uid]);
     else if(this.url_identifier=="viewliterature_")this.router.navigate(['viewliteratures_']);
   }
 
   deleteLiterature(){
     this.literatureService.deleteLiterature(this.lid). subscribe(data => {
-      this.router.navigate(['manageliteratures',this.aid]);
+      this.router.navigate(['manageliteratures',this.p.aid]);
     });
   }
 
   updateLiterature(){
-    this.router.navigate(['updateliterature',this.aid,this.lid]);
+    this.router.navigate(['updateliterature',this.p.aid,this.lid]);
   }
 
 
   login(){
     if(this.p.signedin==true){
-      this.p.signedin=false;
-      this.p.isAdmin = false;
-      this.p.user = new User();
-      this.p.user.id = -1;
+      this.p.logoff();
       this.router.navigate(['welcome']); //signing out
     }else{
       this.router.navigate(['login']); // go to login page
@@ -113,19 +91,19 @@ export class ViewLiteratureComponent implements OnInit {
 
 
   lendLiterature(){
-    this.router.navigate(['lendliteraturel', this.aid, this.lid]);
+    this.router.navigate(['lendliteraturel', this.p.aid, this.lid]);
   }
 
   manageUsers(){
-    this.router.navigate(['/manageusers',this.aid]);
+    this.router.navigate(['/manageusers',this.p.aid]);
   }
 
   manageBooks(){
-    this.router.navigate(['manageliteratures',this.aid]);
+    this.router.navigate(['manageliteratures',this.p.aid]);
   }
   
   goToMyLoans(){
-    this.router.navigate(['myloans',this.uid]);
+    this.router.navigate(['myloans',this.p.uid]);
   }
   
   manageLending(){
@@ -133,19 +111,19 @@ export class ViewLiteratureComponent implements OnInit {
   }
 
   viewBooks(){
-    if(this.p.signedin) this.router.navigate(['viewliteratures',this.uid]);
+    if(this.p.signedin) this.router.navigate(['viewliteratures',this.p.uid]);
     else this.router.navigate(['viewliteratures']);
   }
 
 
 
   goHome(){
-    if(this.p.signedin==true) this.router.navigate(['member',this.uid]);
+    if(this.p.signedin==true) this.router.navigate(['member',this.p.uid]);
     else this.router.navigate(['welcome']);
   }
 
   createUser(){
-    this.router.navigate(['createuser' , this.aid]);
+    this.router.navigate(['createuser' , this.p.aid]);
   }
 
   getAvailableBooks(l : Literature){

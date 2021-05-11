@@ -15,21 +15,18 @@ import { LiteratureService } from '../literature-service';
 export class CreateUserComponent implements OnInit {
 
 
-  user : User = new User();
-  admin : User;
-  aid : number ;
+
 
   p:PARAMS = new PARAMS();
+
   constructor(
     private literatureService:LiteratureService,
     private userService:UserService,
     private router:Router,
     private route:ActivatedRoute) {
-      this.user.role = "Student"
+      this.p.userHandled.role = "Student"
       //This value explicitly specified because "Role" selected from change event
-      this.aid = this.route.snapshot.params['aid'];
-      this.userService.getUserByID(this.aid).subscribe(data => {
-        this.admin = data;
+      this.userService.getUserByID(this.route.snapshot.params['aid']).subscribe(data => {
         this.p.setUserParameters(data);
       } , error => console.log(error));
   }
@@ -39,10 +36,10 @@ export class CreateUserComponent implements OnInit {
   }
 
   selectChangeHandler (event: any) {
-    this.user.role = event.target.value;
+    this.p.userHandled.role = event.target.value;
   }
   saveUser(){
-    this.userService.createUser(this.user).subscribe(data => {
+    this.userService.createUser(this.p.userHandled).subscribe(data => {
       console.log(data);
       this.goToUsersList(); 
     },
@@ -50,7 +47,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   goToUsersList(){
-    this.router.navigate(['/manageusers',this.aid]);
+    this.router.navigate(['/manageusers',this.p.aid]);
   }
 
   onSubmit(){
@@ -59,16 +56,13 @@ export class CreateUserComponent implements OnInit {
 
 
   manageUsers(){
-    this.router.navigate(['/manageusers',this.aid]);
+    this.router.navigate(['/manageusers',this.p.aid]);
   }
 
 
   login(){
     if(this.p.signedin==true){
-      this.p.signedin=false;
-      this.p.isAdmin = false;
-      this.p.user = new User();
-      this.p.user.id = -1;
+      this.p.logoff();
       this.router.navigate(['welcome']); //signing out
     }else{
       this.router.navigate(['login']); // go to login page
@@ -76,7 +70,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   goToMyLoans(){
-    this.router.navigate(['myloans',this.aid]);
+    this.router.navigate(['myloans',this.p.aid]);
   }
   
   manageLending(){
@@ -84,11 +78,11 @@ export class CreateUserComponent implements OnInit {
   }
 
   goHome(){
-    this.router.navigate(['member',this.aid]);
+    this.router.navigate(['member',this.p.aid]);
   }
 
   viewBooks(){
-    this.router.navigate(['viewliteratures',this.aid]);
+    this.router.navigate(['viewliteratures',this.p.aid]);
   }
   
 

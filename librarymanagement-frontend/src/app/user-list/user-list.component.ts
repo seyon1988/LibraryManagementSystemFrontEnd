@@ -12,18 +12,16 @@ import { LiteratureService } from '../literature-service';
 })
 export class UserListComponent implements OnInit {
 
-  admin:User;
+
   users:User[];
-  aid:number;
+
   p:PARAMS = new PARAMS();
   constructor(
     private literatureService:LiteratureService,
     private userService:UserService,
     private router:Router,
     private route:ActivatedRoute) { 
-      this.aid = this.route.snapshot.params['aid'];
-      this.userService.getUserByID(this.aid).subscribe(data => {
-        this.admin = data;
+      this.userService.getUserByID(this.route.snapshot.params['aid']).subscribe(data => {
         this.p.setUserParameters(data);
       } , error => console.log(error));
     }
@@ -39,29 +37,26 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  updateUser(uid :number){
-    this.router.navigate(['updateuser',this.aid,uid]);
+  updateUser(uhid :number){
+    this.router.navigate(['updateuser',this.p.aid,uhid]);
   }
 
-  deleteUser(uid :number){
-    this.userService.deleteUser(uid). subscribe(data => {
+  deleteUser(uhid :number){
+    this.userService.deleteUser(uhid). subscribe(data => {
       console.log(data);
       this.getUsers();
     });
   }
 
   viewUser(uid :number ){
-    this.router.navigate(['viewuser' , this.aid , uid]);
+    this.router.navigate(['viewuser' , this.p.aid , uid]);
   }
 
 
 
   login(){
     if(this.p.signedin==true){
-      this.p.signedin=false;
-      this.p.isAdmin = false;
-      this.p.user = new User();
-      this.p.user.id = -1;
+      this.p.logoff();
       this.router.navigate(['welcome']); //signing out
     }else{
       this.router.navigate(['login']); // go to login page
@@ -69,23 +64,23 @@ export class UserListComponent implements OnInit {
   }
 
   manageUsers(){
-    this.router.navigate(['/manageusers',this.aid]);
+    this.router.navigate(['/manageusers',this.p.aid]);
   }
 
   goHome(){
-    this.router.navigate(['member',this.aid]);
+    this.router.navigate(['member',this.p.aid]);
   }
 
   createUser(){
-    this.router.navigate(['createuser' , this.aid]);
+    this.router.navigate(['createuser' , this.p.aid]);
   }
 
   manageBooks(){
-    this.router.navigate(['manageliteratures',this.aid]);
+    this.router.navigate(['manageliteratures',this.p.aid]);
   }
 
   goToMyLoans(){
-    this.router.navigate(['myloans',this.aid]);
+    this.router.navigate(['myloans',this.p.aid]);
   }
 
   manageLending(){
@@ -93,12 +88,12 @@ export class UserListComponent implements OnInit {
   }
   
   lendLiterature(uid:number){
-    this.router.navigate(['lendliteratureu', this.aid, uid]);
+    this.router.navigate(['lendliteratureu', this.p.aid, uid]);
   }
   
 
   viewBooks(){
-    this.router.navigate(['viewliteratures',this.aid]);
+    this.router.navigate(['viewliteratures',this.p.aid]);
   }
 
 

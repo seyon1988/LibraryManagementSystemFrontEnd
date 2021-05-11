@@ -15,9 +15,7 @@ export class UpdateLiteratureComponent implements OnInit {
 
   literature : Literature = new Literature();
 
-  admin : User = new User();
 
-  aid : number ;
   lid:number;
 
 
@@ -29,14 +27,12 @@ export class UpdateLiteratureComponent implements OnInit {
     private router:Router,
     private route:ActivatedRoute) {
 
-      this.aid = this.route.snapshot.params['aid'];
-      this.userService.getUserByID(this.aid).subscribe(data => {
-        this.admin = data;
+
+      this.userService.getUserByID(this.route.snapshot.params['aid']).subscribe(data => {
         this.p.setUserParameters(data);
       } , error => console.log(error));
 
       this.lid =this.route.snapshot.params['lid'];
-      
       this.literatureService.getLiteratureByID(this.lid).subscribe(data =>{
         this.literature = data;
       } , error => console.log(error) );
@@ -56,13 +52,13 @@ export class UpdateLiteratureComponent implements OnInit {
 
   onSubmit(){
     this.literatureService.updateLiterature(this.lid,this.literature).subscribe( data => {
-      this.router.navigate(['manageliteratures',this.aid]);
+      this.router.navigate(['manageliteratures',this.p.aid]);
     }, error => console.log(error));
   }
 
 
   goToMyLoans(){
-    this.router.navigate(['myloans',this.aid]);
+    this.router.navigate(['myloans',this.p.aid]);
   }
 
   manageLending(){
@@ -70,27 +66,24 @@ export class UpdateLiteratureComponent implements OnInit {
   }
 
   viewBooks(){
-    this.router.navigate(['viewliteratures',this.aid]);
+    this.router.navigate(['viewliteratures',this.p.aid]);
   }
 
   manageBooks(){
-    this.router.navigate(['manageliteratures',this.aid]);
+    this.router.navigate(['manageliteratures',this.p.aid]);
   }
   
 
 
 
   manageUsers(){
-    this.router.navigate(['/manageusers',this.aid]);
+    this.router.navigate(['/manageusers',this.p.aid]);
   }
 
 
   login(){
-    if(this.p.signedin==true){
-      this.p.signedin=false;
-      this.p.isAdmin = false;
-      this.p.user = new User();
-      this.p.user.id = -1;
+    if(this.p.signedin){
+      this.p.logoff();
       this.router.navigate(['welcome']); //signing out
     }else{
       this.router.navigate(['login']); // go to login page
@@ -98,7 +91,7 @@ export class UpdateLiteratureComponent implements OnInit {
   }
 
   goHome(){
-    this.router.navigate(['member',this.aid]);
+    this.router.navigate(['member',this.p.aid]);
   }
 
 

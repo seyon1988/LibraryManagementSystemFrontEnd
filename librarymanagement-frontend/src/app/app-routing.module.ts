@@ -33,7 +33,7 @@ const routes: Routes = [
   {path: 'viewliteraturem/:uid/:lid' , component: ViewLiteratureComponent},
   {path: 'viewliterature/:uid/:lid' , component: ViewLiteratureComponent},
   {path: 'viewliterature_/:lid' , component: ViewLiteratureComponent},
-  {path: 'lendliteratureu/:aid/:uid' , component: LendLiteratureComponent},
+  {path: 'lendliteratureu/:aid/:uhid' , component: LendLiteratureComponent},
   {path: 'lendliteraturel/:aid/:lid' , component: LendLiteratureComponent},
   {path: 'myloans/:mid' , component: MyloansComponent}
 ];

@@ -19,13 +19,11 @@ import { from } from 'rxjs';
 
 export class LendLiteratureComponent implements OnInit {
 
-  admin:User;
-  aid:number;
+
 
   lid:number;
 
-  user:User = new User();
-  uid:number;
+
 
   sUid:number;
   sLid:number;
@@ -47,16 +45,14 @@ export class LendLiteratureComponent implements OnInit {
     private lendService:LendService,
     private router:Router,
     private route:ActivatedRoute) { 
-      this.aid = this.route.snapshot.params['aid'];
-      this.userService.getUserByID(this.aid).subscribe(data => {
-        this.admin = data;
+      this.userService.getUserByID(this.route.snapshot.params['aid']).subscribe(data => {
         this.p.setUserParameters(data);
       } , error => console.log(error));
 
       this.url_identifier = this.router.url.split('/')[1];
       if(this.url_identifier=="lendliteratureu"){
-        this.uid = this.route.snapshot.params['uid'];
-        this.selectUser(this.uid);
+        this.p.uhid = this.route.snapshot.params['uhid'];
+        this.selectUser(this.p.uhid);
       }else if(this.url_identifier=="lendliteraturel"){
         this.lid = this.route.snapshot.params['lid'];
         this.selectLiterature(this.lid);
@@ -79,21 +75,19 @@ export class LendLiteratureComponent implements OnInit {
   selectLiterature(lid:number){
     this.literatureService.getLiteratureByID(lid).subscribe(data => {
       this.literature = data;
-      console.log("Data = "+data.title)
-      console.log("Admin = "+this.admin.firstName)
     } , error => console.log(error));
   }
-  selectUser(uid:number){
-    this.userService.getUserByID(uid).subscribe(data => {
-      this.user = data;
+  selectUser(uhid:number){
+    this.userService.getUserByID(uhid).subscribe(data => {
+      this.p.setUserHandled(data);
     } , error => console.log(error));
   }
 
   addToRegister(){
-    if(this.user.utilizedQuota>=this.user.bookQuota){
+    if(this.p.userHandled.utilizedQuota>=this.p.userHandled.bookQuota){
       const title = "Book Quota of user exceeded";
-      const text = "User has allready borrowed "+this.user.utilizedQuota
-      +" books of his maximum book limit of "+this.user.bookQuota;
+      const text = "User has allready borrowed "+this.p.userHandled.utilizedQuota
+      +" books of his maximum book limit of "+this.p.userHandled.bookQuota;
       this.openModel(title,text);
       return;
     }
@@ -103,21 +97,19 @@ export class LendLiteratureComponent implements OnInit {
       this.openModel(title,text);
       return;
     }
-    this.lend.userID = this.user.id;
+    this.lend.userID = this.p.userHandled.id;
     this.lend.materialID = this.literature.id;
     this.lendService.createLend(this.lend).subscribe(data => {
       console.log(data);
     }, error => console.log(error));
-    console.log("hhere = "+this.literature.lendedBooks);
     this.literature.lendedBooks++;
-    console.log("hhere aft = "+this.literature.lendedBooks);
-    this.literatureService.updateLiterature(this.lid,this.literature).subscribe(data => {
+    this.literatureService.updateLiterature(this.literature.id,this.literature).subscribe(data => {
       console.log(data);
     } , error => console.log(error));
   }
 
   goToUsersList(){
-    this.router.navigate(['/manageusers',this.aid]);
+    this.router.navigate(['/manageusers',this.p.aid]);
   }
 
   onSubmit(){
@@ -130,25 +122,22 @@ export class LendLiteratureComponent implements OnInit {
  
 
   createUser(){
-    this.router.navigate(['createuser' , this.aid]);
+    this.router.navigate(['createuser' , this.p.aid]);
   }
 
   manageBooks(){
-    this.router.navigate(['manageliteratures',this.aid]);
+    this.router.navigate(['manageliteratures',this.p.aid]);
   }
 
 
   manageUsers(){
-    this.router.navigate(['/manageusers',this.aid]);
+    this.router.navigate(['/manageusers',this.p.aid]);
   }
 
 
   login(){
     if(this.p.signedin==true){
-      this.p.signedin=false;
-      this.p.isAdmin = false;
-      this.p.user = new User();
-      this.p.user.id = -1;
+      this.p.logoff();
       this.router.navigate(['welcome']); //signing out
     }else{
       this.router.navigate(['login']); // go to login page
@@ -156,7 +145,7 @@ export class LendLiteratureComponent implements OnInit {
   }
 
   goToMyLoans(){
-    this.router.navigate(['myloans',this.aid]);
+    this.router.navigate(['myloans',this.p.aid]);
   }
   
   manageLending(){
@@ -164,11 +153,11 @@ export class LendLiteratureComponent implements OnInit {
   }
 
   goHome(){
-    this.router.navigate(['member',this.aid]);
+    this.router.navigate(['member',this.p.aid]);
   }
 
   viewBooks(){
-    this.router.navigate(['viewliteratures',this.aid]);
+    this.router.navigate(['viewliteratures',this.p.aid]);
   }
   
 

@@ -19,22 +19,12 @@ import { from } from 'rxjs';
 })
 export class MyloansComponent implements OnInit {
 
-  admin:User;
-  
-  aid:number;
-  mid:number;
-  lid:number;
-
-  user:User = new User();
-  uid:number;
-
-  sUid:number;
-  sLid:number;
 
 
   lend:Lend = new Lend();
   literature:Literature = new Literature();
 
+  lid:number;
 
 
   url_identifier:String;
@@ -48,13 +38,9 @@ export class MyloansComponent implements OnInit {
     private lendService:LendService,
     private router:Router,
     private route:ActivatedRoute) { 
-
-      this.mid = this.route.snapshot.params['mid'];
-      this.userService.getUserByID(this.uid).subscribe(data => {
-        this.admin = data;
+      this.userService.getUserByID(this.route.snapshot.params['mid']).subscribe(data => {
         this.p.setUserParameters(data);
       } , error => console.log(error));
-      if(this.p.isAdmin) this.admin = this.p.admin;
     }
 
   ngOnInit(): void {
@@ -63,10 +49,7 @@ export class MyloansComponent implements OnInit {
 
   login(){
     if(this.p.signedin==true){
-      this.p.signedin=false;
-      this.p.isAdmin = false;
-      this.p.user = new User();
-      this.p.user.id = -1;
+      this.p.logoff();
       this.router.navigate(['welcome']); //signing out
     }else{
       this.router.navigate(['login']); // go to login page
@@ -75,21 +58,17 @@ export class MyloansComponent implements OnInit {
 
 
 
- 
-  lendLiterature(){
-    this.router.navigate(['lendliteraturel', this.aid, this.lid]);
-  }
 
   manageUsers(){
-    this.router.navigate(['/manageusers',this.aid]);
+    this.router.navigate(['/manageusers',this.p.aid]);
   }
 
   manageBooks(){
-    this.router.navigate(['manageliteratures',this.aid]);
+    this.router.navigate(['manageliteratures',this.p.aid]);
   }
   
   goToMyLoans(){
-    this.router.navigate(['myloans',this.uid]);
+    this.router.navigate(['myloans',this.p.uid]);
   }
   
   manageLending(){
@@ -97,13 +76,13 @@ export class MyloansComponent implements OnInit {
   }
 
   viewBooks(){
-    this.router.navigate(['viewliteratures',this.uid]);
+    this.router.navigate(['viewliteratures',this.p.uid]);
   }
 
 
 
   goHome(){
-    this.router.navigate(['member',this.aid]);
+    this.router.navigate(['member',this.p.aid]);
   }
 
 

@@ -27,9 +27,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
-    //console.log("Submitted");
-    //console.log(this.email);
-    //console.log(this.pword);
     this.userService.getUserByEmailPword(this.email,this.pword).subscribe(data => {
       this.user = data;
       if(this.user==null){

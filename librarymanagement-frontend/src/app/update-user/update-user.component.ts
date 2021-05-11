@@ -18,29 +18,25 @@ import { LiteratureService } from '../literature-service';
 
 export class UpdateUserComponent implements OnInit  {
 
-  user : User = new User();
-  admin : User ;
-  userRole:String;
 
-  uid:number;
-  aid:number;
+
+
 
   p:PARAMS = new PARAMS();
+  
   constructor(
     private userService:UserService,
     private route:ActivatedRoute,
     private router:Router) {
 
 
-      this.uid = this.route.snapshot.params['uid'];
-      this.userService.getUserByID(this.uid).subscribe(data => {
-        this.user = data;
-        console.log(data);
+
+      this.userService.getUserByID(this.route.snapshot.params['uid']).subscribe(data => {
+        this.p.setUserHandled(data);
       } , error => console.log(error));
 
-      this.aid = this.route.snapshot.params['aid'];
-      this.userService.getUserByID(this.aid).subscribe(data => {
-        this.admin = data;
+
+      this.userService.getUserByID(this.route.snapshot.params['aid']).subscribe(data => {
         this.p.setUserParameters(data);
       } , error => console.log(error));
 
@@ -50,7 +46,7 @@ export class UpdateUserComponent implements OnInit  {
 
 
   selectChangeHandler (event: any) {
-    this.user.role = event.target.value;
+    this.p.userHandled.role = event.target.value;
   }
   
 
@@ -60,8 +56,8 @@ export class UpdateUserComponent implements OnInit  {
 
 
   onSubmit(){
-    this.userService.updateUser(this.uid,this.user).subscribe(data => {
-      this.router.navigate(['manageusers',this.aid]);
+    this.userService.updateUser(this.p.userHandled.id,this.p.userHandled).subscribe(data => {
+      this.router.navigate(['manageusers',this.p.aid]);
     } , error => console.log(error));
   }
 
@@ -77,17 +73,14 @@ export class UpdateUserComponent implements OnInit  {
   }
 
   manageUsers(){
-    this.router.navigate(['/manageusers',this.aid]);
+    this.router.navigate(['/manageusers',this.p.aid]);
   }
 
 
 
   login(){
     if(this.p.signedin==true){
-      this.p.signedin=false;
-      this.p.isAdmin = false;
-      this.p.user = new User();
-      this.p.user.id = -1;
+      this.p.logoff();
       this.router.navigate(['welcome']); //signing out
     }else{
       this.router.navigate(['login']); // go to login page
@@ -95,11 +88,11 @@ export class UpdateUserComponent implements OnInit  {
   }
 
   goHome(){
-    this.router.navigate(['member',this.aid]);
+    this.router.navigate(['member',this.p.aid]);
   }
 
   goToMyLoans(){
-    this.router.navigate(['myloans',this.aid]);
+    this.router.navigate(['myloans',this.p.aid]);
   }
 
   manageLending(){
@@ -107,11 +100,11 @@ export class UpdateUserComponent implements OnInit  {
   }
 
   viewBooks(){
-    this.router.navigate(['viewliteratures',this.aid]);
+    this.router.navigate(['viewliteratures',this.p.aid]);
   }
 
   manageBooks(){
-    this.router.navigate(['manageliteratures',this.aid]);
+    this.router.navigate(['manageliteratures',this.p.aid]);
   }
 
 

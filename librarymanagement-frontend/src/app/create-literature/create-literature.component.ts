@@ -14,8 +14,7 @@ import { LiteratureService } from '../literature-service';
 export class CreateLiteratureComponent implements OnInit {
 
   literature : Literature = new Literature();
-  admin : User = new User();
-  aid : number ;
+
 
   p:PARAMS = new PARAMS();
 
@@ -26,9 +25,7 @@ export class CreateLiteratureComponent implements OnInit {
     private route:ActivatedRoute) {
       this.literature.category = "Student"
       //This value explicitly specified because "Role" selected from change event
-      this.aid = this.route.snapshot.params['aid'];
-      this.userService.getUserByID(this.aid).subscribe(data => {
-        this.admin = data;
+      this.userService.getUserByID(this.route.snapshot.params['aid']).subscribe(data => {
         this.p.setUserParameters(data);
       } , error => console.log(error));
 
@@ -54,7 +51,7 @@ export class CreateLiteratureComponent implements OnInit {
 
 
   goToMyLoans(){
-    this.router.navigate(['myloans',this.aid]);
+    this.router.navigate(['myloans',this.p.aid]);
   }
 
   manageLending(){
@@ -62,11 +59,11 @@ export class CreateLiteratureComponent implements OnInit {
   }
 
   viewBooks(){
-    this.router.navigate(['viewliteratures',this.aid]);
+    this.router.navigate(['viewliteratures',this.p.aid]);
   }
 
   manageBooks(){
-    this.router.navigate(['manageliteratures',this.aid]);
+    this.router.navigate(['manageliteratures',this.p.aid]);
   }
   
   onSubmit(){
@@ -75,16 +72,13 @@ export class CreateLiteratureComponent implements OnInit {
 
 
   manageUsers(){
-    this.router.navigate(['/manageusers',this.aid]);
+    this.router.navigate(['/manageusers',this.p.aid]);
   }
 
 
   login(){
     if(this.p.signedin==true){
-      this.p.signedin=false;
-      this.p.isAdmin = false;
-      this.p.user = new User();
-      this.p.user.id = -1;
+      this.p.logoff();
       this.router.navigate(['welcome']); //signing out
     }else{
       this.router.navigate(['login']); // go to login page
@@ -92,7 +86,7 @@ export class CreateLiteratureComponent implements OnInit {
   }
 
   goHome(){
-    this.router.navigate(['member',this.aid]);
+    this.router.navigate(['member',this.p.aid]);
   }
 
 
