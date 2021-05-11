@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: '' , redirectTo:'welcome' , pathMatch:'full'},
   {path: 'updateuser/:aid/:uid' , component: UpdateUserComponent},
   {path: 'viewuser/:aid/:uid' , component: ViewUserComponent},
-  {path: 'manageliteratures/:uid' , component: LiteratureListComponent},
+  {path: 'manageliteratures/:aid' , component: LiteratureListComponent},
   {path: 'viewliteratures/:uid' , component: LiteratureListComponent},
   {path: 'updateliterature/:aid/:lid' , component: UpdateLiteratureComponent},
   {path: 'createliterature/:aid' , component: CreateLiteratureComponent},

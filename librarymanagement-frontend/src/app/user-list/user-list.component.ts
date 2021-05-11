@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PARAMS } from '../params';
 import { User } from "../user"
 import { UserService } from "../user.service"
+import { LiteratureService } from '../literature-service';
 
 @Component({
   selector: 'app-user-list',
@@ -14,11 +15,18 @@ export class UserListComponent implements OnInit {
   admin:User;
   users:User[];
   aid:number;
-
+  p:PARAMS = new PARAMS();
   constructor(
+    private literatureService:LiteratureService,
     private userService:UserService,
     private router:Router,
-    private route:ActivatedRoute) { }
+    private route:ActivatedRoute) { 
+      this.aid = this.route.snapshot.params['aid'];
+      this.userService.getUserByID(this.aid).subscribe(data => {
+        this.admin = data;
+        this.p.setUserParameters(data);
+      } , error => console.log(error));
+    }
 
   ngOnInit(): void {
 
@@ -26,13 +34,6 @@ export class UserListComponent implements OnInit {
   }
 
   private getUsers(){
-    this.aid = this.route.snapshot.params['aid'];
-    this.userService.getUserByID(this.aid).subscribe(data => {
-      this.admin = data;
-      PARAMS.setNavParams(1,this.admin);
-      PARAMS.loginStatus = true;
-
-    } , error => console.log(error));
     this.userService.getUserList(). subscribe(data => {
       this.users = data.sort((a,b)=> a.id-b.id);
     });
@@ -54,10 +55,17 @@ export class UserListComponent implements OnInit {
   }
 
 
+
   login(){
-    PARAMS.loginStatus=false;
-    PARAMS.setNavParams(0,this.admin);
-    this.router.navigate(['welcome']); //signing out
+    if(this.p.signedin==true){
+      this.p.signedin=false;
+      this.p.isAdmin = false;
+      this.p.user = new User();
+      this.p.user.id = -1;
+      this.router.navigate(['welcome']); //signing out
+    }else{
+      this.router.navigate(['login']); // go to login page
+    }
   }
 
   manageUsers(){
@@ -92,12 +100,6 @@ export class UserListComponent implements OnInit {
   viewBooks(){
     
   }
-
-  getLoginIdTxt(){return PARAMS.strLoginID};
-  getMyLoansTxt(){return PARAMS.strMyLoans};
-  getManageUsersTxt(){return PARAMS.strManageUsers};
-  getManageBoosTxt(){return PARAMS.strManageBooks};
-  getManageLendingTxt(){return PARAMS.strManageLending};
 
 
 }

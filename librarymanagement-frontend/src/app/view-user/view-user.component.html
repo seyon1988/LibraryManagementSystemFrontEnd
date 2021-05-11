@@ -1,81 +1,42 @@
+<nav  ng-model="foo" class="navbar navbar-expand-sm   navbar-dark" >
 
 
 
+  <img  src="/assets/images/user.png" alt="image">
+  &nbsp;&nbsp;
+  <ul class = "navbar-nav" style="margin-right: 0px; float: right; color: white;">
 
 
-
-<nav ng-model="foo" class="navbar navbar-expand-sm   navbar-dark" >
-
-
-
-    <img src="/assets/images/user.png" alt="image">
-    &nbsp;&nbsp;
-    <ul class = "navbar-nav" style="margin-right: 0px; float: right; color: white;">
-  
-  
-  
-      <li >
-        <a type="button" (click)="login()"  class="nav-link">
-            <div style="color: white; font-size: 20px">
-              {{getLoginIdTxt()}}</div></a>
-      </li>&nbsp;&nbsp;
-      
-      <li >
-        <a type="button" (click)="goHome()"  class="nav-link">
-            <div style="color: white; font-size: 20px">
-              Home</div></a>
-      </li>&nbsp;&nbsp;
-  
-  
-      <li>
-        <a type="button" (click)="viewBooks()" class="nav-link">
-            <div style="color: white; font-size: 20px">View Books</div></a>
-      </li>&nbsp;&nbsp;
-  
-  
-  
-  
-      <li >
-        <a type="button"  (click)="goToMyLoans()" class="nav-link">
-            <div style="color: white; font-size: 20px">
-              {{getMyLoansTxt()}}</div></a>
-      </li>&nbsp;&nbsp;
-  
-  
-  
-  
-      <li >
-        <a type="button" (click)="goBack()"  class="nav-link">
-            <div style="color: white; font-size: 20px">
-              {{getManageUsersTxt()}}</div></a>
-      </li>&nbsp;&nbsp;
-  
-  
-  
-      <li >
-        <a type="button" (click)="manageBooks()"  class="nav-link">
-            <div style="color: white; font-size: 20px">
-              {{getManageBoosTxt()}}</div></a>
-      </li>&nbsp;&nbsp;
-  
-  
-  
-      <li >
-        <a type="button" (click)="manageLending()"  class="nav-link">
-            <div style="color: white; font-size: 20px">
-              {{getManageLendingTxt()}}</div></a>
-      </li>&nbsp;&nbsp;
-  
-  
-  
-    </ul>
-  </nav>
-    <br><br>  
+    <li ><a  type="button" (click)="login()"  class="nav-link">
+      <div style="color: white; font-size: 20px">{{p.loginText}}</div></a></li>&nbsp;&nbsp;
 
 
+    <li ><a type="button" (click)="goHome()"  class="nav-link">
+      <div style="color: white; font-size: 20px">Home</div></a></li>&nbsp;&nbsp;
 
 
+    <li><a type="button" (click)="viewBooks()" class="nav-link">
+      <div style="color: white; font-size: 20px">View Books</div></a></li>&nbsp;&nbsp;
 
+
+    <li ><a *ngIf="p.signedin"  type="button" (click)="goToMyLoans()"  class="nav-link">
+      <div style="color: white; font-size: 20px">MyLoans</div></a></li>&nbsp;&nbsp;
+
+
+    <li ><a *ngIf="p.isAdmin"  type="button"  (click)="manageUsers()" class="nav-link">
+      <div style="color: white; font-size: 20px">Manage Users</div></a></li>&nbsp;&nbsp;
+
+
+    <li ><a *ngIf="p.isAdmin"  type="button" (click)="manageBooks()"  class="nav-link">
+      <div style="color: white; font-size: 20px"> Manage Books</div></a></li>&nbsp;&nbsp;
+
+
+    <li ><a *ngIf="p.isAdmin"  type="button" (click)="manageLending()"  class="nav-link">
+      <div style="color: white; font-size: 20px"> Manage Lending</div></a></li>&nbsp;&nbsp;
+
+  </ul>
+</nav>
+<br><br><br><br>
 
 
 

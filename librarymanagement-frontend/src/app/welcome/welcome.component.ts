@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../user';
 import {PARAMS} from '../params'
 import { UserService } from '../user.service';
+import { LiteratureService } from '../literature-service';
 
 @Component({
   selector: 'app-welcome',
@@ -12,41 +13,43 @@ import { UserService } from '../user.service';
 export class WelcomeComponent implements OnInit {
 
 
-  public edited = true;
-  user:User;
-  mid:number;
 
-  bill:Boolean = false;
-  signedin: Boolean;
+  user:User = new User();
+  //admin:User = new User();
+  mid:number;
+  logintext:String = "Login";
+  
+
+
+
   url_identifier : String;
 
+  aa:number=0;
 
+
+  
+  p:PARAMS = new PARAMS();
   constructor(
     private userService:UserService,
     private router:Router,
-    private route:ActivatedRoute) { 
+    private route:ActivatedRoute,) { 
 
+
+    
     this.url_identifier = this.router.url.split('/')[1];
     if(this.url_identifier=="welcome"){
 
-      PARAMS.setNavParams(0,this.user);
 
     }else if(this.url_identifier=="member"){
+      console.log("In member");
+      
       this.mid = this.route.snapshot.params['mid'];
-
-
       this.userService.getUserByID(this.mid).subscribe(data => {
         this.user = data;
-        if(data.id==0){
-          PARAMS.setNavParams(0,this.user);
-          PARAMS.loginStatus = false;
-        }else{
-          PARAMS.setNavParams(1,this.user);
-          PARAMS.loginStatus = true;
-        }
+        this.p.setUserParameters(data);
       } , error => console.log(error));
 
-
+      
 
     }
     
@@ -57,9 +60,11 @@ export class WelcomeComponent implements OnInit {
   }
 
   login(){
-    if(PARAMS.loginStatus==true){
-      PARAMS.loginStatus=false;
-      PARAMS.setNavParams(0,this.user);
+    if(this.p.signedin==true){
+      this.p.signedin=false;
+      this.p.isAdmin = false;
+      this.p.user = new User();
+      this.p.user.id = -1;
       this.router.navigate(['welcome']); //signing out
     }else{
       this.router.navigate(['login']); // go to login page
@@ -98,11 +103,6 @@ export class WelcomeComponent implements OnInit {
     
   }
 
-  getLoginIdTxt(){return PARAMS.strLoginID};
-  getMyLoansTxt(){return PARAMS.strMyLoans};
-  getManageUsersTxt(){return PARAMS.strManageUsers};
-  getManageBoosTxt(){return PARAMS.strManageBooks};
-  getManageLendingTxt(){return PARAMS.strManageLending};
 
 
 }

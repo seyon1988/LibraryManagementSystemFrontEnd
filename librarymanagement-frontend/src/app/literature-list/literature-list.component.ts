@@ -19,21 +19,19 @@ export class LiteratureListComponent implements OnInit {
   
   aid:number;
 
+  p:PARAMS = new PARAMS();
   constructor(
     private literatureService:LiteratureService,
     private userService:UserService,
     private router:Router,
     private route:ActivatedRoute) {
-      this.aid = this.route.snapshot.params['uid'];
-      this.userService.getUserByID(this.aid).subscribe(data => {
-        this.admin = data;
-        PARAMS.setNavParams(1,this.admin);
-        PARAMS.loginStatus = true;
+    this.aid = this.route.snapshot.params['aid'];
+    this.userService.getUserByID(this.aid).subscribe(data => {
+      this.admin = data;
+      this.p.setUserParameters(data);
+    } , error => console.log(error));
 
-      } , error => console.log(error));
-
-
-      this.getLiteratures();
+    this.getLiteratures();
 
 
   }
@@ -50,6 +48,7 @@ export class LiteratureListComponent implements OnInit {
   }
 
   updateLiterature(lid:number){
+    console.log(" aid "+this.aid+lid)
     this.router.navigate(['updateliterature',this.aid,lid]);
   }
 
@@ -76,9 +75,15 @@ export class LiteratureListComponent implements OnInit {
 
 
   login(){
-    PARAMS.loginStatus=false;
-    PARAMS.setNavParams(0,this.admin);
-    this.router.navigate(['welcome']); //signing out
+    if(this.p.signedin==true){
+      this.p.signedin=false;
+      this.p.isAdmin = false;
+      this.p.user = new User();
+      this.p.user.id = -1;
+      this.router.navigate(['welcome']); //signing out
+    }else{
+      this.router.navigate(['login']); // go to login page
+    }
   }
 
   manageUsers(){
@@ -114,12 +119,5 @@ export class LiteratureListComponent implements OnInit {
   getAvailableBooks(l : Literature){
     return (l.totalBooks - l.lendedBooks);
   }
-
-  getLoginIdTxt(){return PARAMS.strLoginID};
-  getMyLoansTxt(){return PARAMS.strMyLoans};
-  getManageUsersTxt(){return PARAMS.strManageUsers};
-  getManageBoosTxt(){return PARAMS.strManageBooks};
-  getManageLendingTxt(){return PARAMS.strManageLending};
-
 
 }

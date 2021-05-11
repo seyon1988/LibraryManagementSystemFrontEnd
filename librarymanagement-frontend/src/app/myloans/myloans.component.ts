@@ -20,6 +20,7 @@ import { from } from 'rxjs';
 export class MyloansComponent implements OnInit {
 
   admin:User;
+  
   aid:number;
 
   lid:number;
@@ -39,7 +40,7 @@ export class MyloansComponent implements OnInit {
   url_identifier:String;
   mc:ModelComponent;
   
-
+  p:PARAMS = new PARAMS();
   constructor(
     public matDialog: MatDialog,
     private userService:UserService,
@@ -50,22 +51,63 @@ export class MyloansComponent implements OnInit {
 
       this.uid = this.route.snapshot.params['uid'];
       this.userService.getUserByID(this.uid).subscribe(data => {
-        this.user = data;
-        PARAMS.setNavParams(1,this.user);
-        PARAMS.loginStatus = true;
-        if(data.role.toLowerCase()=="librarian"){
-          this.admin = data;
-        }
-
+        this.admin = data;
+        this.p.setUserParameters(data);
       } , error => console.log(error));
-
-
-
-
-
+      if(this.p.isAdmin) this.admin = this.p.admin;
     }
 
   ngOnInit(): void {
   }
+
+
+  login(){
+    if(this.p.signedin==true){
+      this.p.signedin=false;
+      this.p.isAdmin = false;
+      this.p.user = new User();
+      this.p.user.id = -1;
+      this.router.navigate(['welcome']); //signing out
+    }else{
+      this.router.navigate(['login']); // go to login page
+    }
+  }
+
+
+
+ 
+  lendLiterature(){
+    this.router.navigate(['lendliteraturel', this.aid, this.lid]);
+  }
+
+  manageUsers(){
+    this.router.navigate(['/manageusers',this.aid]);
+  }
+
+  manageBooks(){
+    this.router.navigate(['manageliteratures',this.aid]);
+  }
+  
+  goToMyLoans(){
+
+  }
+  
+  manageLending(){
+
+  }
+
+  viewBooks(){
+    
+  }
+
+
+
+  goHome(){
+    this.router.navigate(['member',this.aid]);
+  }
+
+
+
+
 
 }

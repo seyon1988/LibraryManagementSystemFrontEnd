@@ -1,43 +1,40 @@
+import { ActivatedRoute, Router } from "@angular/router";
 import { User } from "./user";
+import { UserService } from "./user.service";
+import { Literature } from './literature';
+import { LiteratureService } from './literature-service';
+import { waitForAsync } from "@angular/core/testing";
 
 export class PARAMS {
-    static loginStatus:Boolean;
 
+  public signedin:boolean = false;
+  public isAdmin:boolean = false;
+  public user:User = new User();
+  public admin:User = new User();
   
-    static strLoginID : String = "Login";
-    static strMyLoans : String = "MyLoans";
-  
-    static strManageUsers : String = "";
-    static strManageBooks : String = "";
-    static strManageLending : String = "";
+  loginText:String = "Login";
 
 
-    static setNavParams(ls:number,user : User){
 
-      PARAMS.strLoginID = "Login" ;
+  constructor(){}
 
-      if(ls==0){
 
-          PARAMS.strMyLoans = "" ;   
-          PARAMS.strManageUsers = "" ;
-          PARAMS.strManageBooks = "" ;
-          PARAMS.strManageLending = "" ;
-        }else if(ls==1){
-          PARAMS.strLoginID = user.firstName+", Logout" ;
-          PARAMS.strMyLoans = "MyLoans" ;
-    
-          if(user.role.toLowerCase()=="student"){
-            PARAMS.strManageUsers = "" ;
-            PARAMS.strManageBooks = "" ;
-            PARAMS.strManageLending = "" ;
-          }else{
-            PARAMS.strManageUsers = "Manage Users" ;
-            PARAMS.strManageBooks = "Manage Books" ;
-            PARAMS.strManageLending = "Manage Lending" ;
-          }
-        }
-    
+    public setUserParameters(user:User){
+      this.signedin= true;
+      this.user = user;
+      if(this.user.role.toLowerCase()=="librarian"){
+        this.isAdmin = true;
+        this.admin = user;
       }
+      this.loginText = this.user.firstName + ", Logout";
+    }
 
+    public logoff(){
+      this.signedin= false;
+      this.isAdmin = false;
+      this.user = new User();
+      this.admin = new User();
+      this.loginText = "Login";
+    }
 
 }

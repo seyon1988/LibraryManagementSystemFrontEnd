@@ -15,7 +15,14 @@ import { LiteratureService } from '../literature-service';
 export class ViewLiteratureComponent implements OnInit {
 
 
-  admin : User;
+
+  user:User = new User();
+  admin:User = new User();
+  mid:number;
+  logintext:String = "Login";
+  p:PARAMS = new PARAMS();
+
+
   aid: number;
   lid:number;
   
@@ -25,20 +32,18 @@ export class ViewLiteratureComponent implements OnInit {
     private literatureService:LiteratureService,
     private userService:UserService,
     private router:Router,
-    private route:ActivatedRoute) {
+    private route:ActivatedRoute) { 
 
       this.aid = this.route.snapshot.params['aid'];
       this.userService.getUserByID(this.aid).subscribe(data => {
         this.admin = data;
-        PARAMS.setNavParams(1,this.admin);
-        PARAMS.loginStatus = true;
-    } , error => console.log(error));
+        this.p.setUserParameters(data);
+        this.lid =this.route.snapshot.params['lid'];
+        this.literatureService.getLiteratureByID(this.lid).subscribe(data => {
+          this.literature = data;
+        } , error => console.log(error));
+      } , error => console.log(error));
 
-    this.lid =this.route.snapshot.params['lid'];
-      
-    this.literatureService.getLiteratureByID(this.lid).subscribe(data =>{
-      this.literature = data;
-    } , error => console.log(error) );
 
   }
 
@@ -61,10 +66,17 @@ export class ViewLiteratureComponent implements OnInit {
 
 
   login(){
-    PARAMS.loginStatus=false;
-    PARAMS.setNavParams(0,this.admin);
-    this.router.navigate(['welcome']); //signing out
+    if(this.p.signedin==true){
+      this.p.signedin=false;
+      this.p.isAdmin = false;
+      this.p.user = new User();
+      this.p.user.id = -1;
+      this.router.navigate(['welcome']); //signing out
+    }else{
+      this.router.navigate(['login']); // go to login page
+    }
   }
+
 
   lendLiterature(){
     this.router.navigate(['lendliteraturel', this.aid, this.lid]);
@@ -104,11 +116,6 @@ export class ViewLiteratureComponent implements OnInit {
     return (l.totalBooks - l.lendedBooks);
   }
 
-  getLoginIdTxt(){return PARAMS.strLoginID};
-  getMyLoansTxt(){return PARAMS.strMyLoans};
-  getManageUsersTxt(){return PARAMS.strManageUsers};
-  getManageBoosTxt(){return PARAMS.strManageBooks};
-  getManageLendingTxt(){return PARAMS.strManageLending};
 
 
 }

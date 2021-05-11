@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PARAMS } from '../params';
 import { User } from '../user';
 import { UserService } from '../user.service';
+import { LiteratureService } from '../literature-service';
 
 @Component({
   selector: 'app-update-user',
@@ -24,7 +25,7 @@ export class UpdateUserComponent implements OnInit  {
   uid:number;
   aid:number;
 
-
+  p:PARAMS = new PARAMS();
   constructor(
     private userService:UserService,
     private route:ActivatedRoute,
@@ -40,9 +41,7 @@ export class UpdateUserComponent implements OnInit  {
       this.aid = this.route.snapshot.params['aid'];
       this.userService.getUserByID(this.aid).subscribe(data => {
         this.admin = data;
-        PARAMS.setNavParams(1,this.admin);
-        PARAMS.loginStatus = true;
-  
+        this.p.setUserParameters(data);
       } , error => console.log(error));
 
 
@@ -82,12 +81,18 @@ export class UpdateUserComponent implements OnInit  {
   }
 
 
-  login(){
-    PARAMS.loginStatus=false;
-    PARAMS.setNavParams(0,this.admin);
-    this.router.navigate(['welcome']); //signing out
-  }
 
+  login(){
+    if(this.p.signedin==true){
+      this.p.signedin=false;
+      this.p.isAdmin = false;
+      this.p.user = new User();
+      this.p.user.id = -1;
+      this.router.navigate(['welcome']); //signing out
+    }else{
+      this.router.navigate(['login']); // go to login page
+    }
+  }
 
   goHome(){
     this.router.navigate(['member',this.aid]);
@@ -108,13 +113,6 @@ export class UpdateUserComponent implements OnInit  {
   manageBooks(){
     this.router.navigate(['manageliteratures',this.aid]);
   }
-
-
-  getLoginIdTxt(){return PARAMS.strLoginID};
-  getMyLoansTxt(){return PARAMS.strMyLoans};
-  getManageUsersTxt(){return PARAMS.strManageUsers};
-  getManageBoosTxt(){return PARAMS.strManageBooks};
-  getManageLendingTxt(){return PARAMS.strManageLending};
 
 
 

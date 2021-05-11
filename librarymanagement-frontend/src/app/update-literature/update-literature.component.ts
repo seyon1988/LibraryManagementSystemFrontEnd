@@ -22,7 +22,7 @@ export class UpdateLiteratureComponent implements OnInit {
 
 
 
-
+  p:PARAMS = new PARAMS();
   constructor(
     private literatureService:LiteratureService,
     private userService:UserService,
@@ -32,9 +32,7 @@ export class UpdateLiteratureComponent implements OnInit {
       this.aid = this.route.snapshot.params['aid'];
       this.userService.getUserByID(this.aid).subscribe(data => {
         this.admin = data;
-        PARAMS.setNavParams(1,this.admin);
-        PARAMS.loginStatus = true;
-  
+        this.p.setUserParameters(data);
       } , error => console.log(error));
 
       this.lid =this.route.snapshot.params['lid'];
@@ -88,21 +86,20 @@ export class UpdateLiteratureComponent implements OnInit {
 
 
   login(){
-    PARAMS.loginStatus=false;
-    PARAMS.setNavParams(0,this.admin);
-    this.router.navigate(['welcome']); //signing out
+    if(this.p.signedin==true){
+      this.p.signedin=false;
+      this.p.isAdmin = false;
+      this.p.user = new User();
+      this.p.user.id = -1;
+      this.router.navigate(['welcome']); //signing out
+    }else{
+      this.router.navigate(['login']); // go to login page
+    }
   }
-
 
   goHome(){
     this.router.navigate(['member',this.aid]);
   }
-
-  getLoginIdTxt(){return PARAMS.strLoginID};
-  getMyLoansTxt(){return PARAMS.strMyLoans};
-  getManageUsersTxt(){return PARAMS.strManageUsers};
-  getManageBoosTxt(){return PARAMS.strManageBooks};
-  getManageLendingTxt(){return PARAMS.strManageLending};
 
 
 }
