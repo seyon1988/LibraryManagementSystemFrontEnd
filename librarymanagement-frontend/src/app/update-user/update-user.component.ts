@@ -96,7 +96,7 @@ export class UpdateUserComponent implements OnInit  {
   }
 
   manageLending(){
-    console.log("l");
+    this.router.navigate(['managelendings',this.p.aid]);
   }
 
   viewBooks(){

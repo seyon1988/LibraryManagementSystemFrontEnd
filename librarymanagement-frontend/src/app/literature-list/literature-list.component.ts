@@ -128,9 +128,9 @@ export class LiteratureListComponent implements OnInit {
   }
   
   manageLending(){
-
+    this.router.navigate(['managelendings',this.p.aid]);
   }
-
+  
   viewBooks(){
     if(this.p.signedin) this.router.navigate(['viewliteratures',this.p.uid]);
     else this.router.navigate(['viewliteratures']);

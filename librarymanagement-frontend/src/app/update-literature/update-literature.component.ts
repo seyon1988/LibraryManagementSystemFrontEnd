@@ -62,7 +62,7 @@ export class UpdateLiteratureComponent implements OnInit {
   }
 
   manageLending(){
-
+    this.router.navigate(['managelendings',this.p.aid]);
   }
 
   viewBooks(){

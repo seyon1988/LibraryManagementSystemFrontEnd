@@ -102,10 +102,18 @@ export class LendLiteratureComponent implements OnInit {
     this.lendService.createLend(this.lend).subscribe(data => {
       console.log(data);
     }, error => console.log(error));
+
     this.literature.lendedBooks++;
     this.literatureService.updateLiterature(this.literature.id,this.literature).subscribe(data => {
       console.log(data);
     } , error => console.log(error));
+
+    this.p.userHandled.utilizedQuota++;
+    this.userService.updateUser(this.p.userHandled.id,this.p.userHandled).subscribe(data => {
+      console.log(data);
+    } , error => console.log(error));
+
+
   }
 
   goToUsersList(){
@@ -149,7 +157,7 @@ export class LendLiteratureComponent implements OnInit {
   }
   
   manageLending(){
-
+    this.router.navigate(['managelendings',this.p.aid]);
   }
 
   goHome(){

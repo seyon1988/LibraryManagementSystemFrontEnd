@@ -84,7 +84,7 @@ export class UserListComponent implements OnInit {
   }
 
   manageLending(){
-
+    this.router.navigate(['managelendings',this.p.aid]);
   }
   
   lendLiterature(uid:number){

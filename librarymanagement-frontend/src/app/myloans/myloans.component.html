@@ -35,5 +35,66 @@
         <div style="color: white; font-size: 20px"> Manage Lending</div></a></li>&nbsp;&nbsp;
   
     </ul>
-  </nav>
+</nav>
+<br><br><br><br>
+
+
+
+<table style="width: 60%; margin-left: 100px;" >
+  <tr style=" border: 1px solid black; text-align: center; font-weight: bold;
+  background: rgb(83, 161, 161); color: white;">
+      <td><br><h3>{{arrearsText}}</h3><br></td>
+      <br>
+      <td><br><h5>{{arrearsCount1}}</h5><h5>{{arrearsCount2}}</h5><br></td>
+  </tr>
+  <br>
+</table>
+
+<div style="margin-top: 50px;">
+
+
+
+  <br>
+  <table *ngFor = "let literature of literatures"  style=" margin-left: 100px; width: 60%;">
+    
+    <tr style="border: 1px solid black; text-align: center; font-weight: bold;" >
+
+      <br>
+      <table style="width: 90%; margin: auto;" >
+        <tr style="border: 1px solid black; text-align: center; font-weight: bold;
+        background: rgb(83, 161, 161); color: white;">
+            <td>Literature Details</td>
+        </tr>
+      </table>
+      
+
+      <table style="width: 90%; margin: auto;" >
+          <br>
+          <tr style="border: 1px solid black; ">
+              <td>&nbsp;&nbsp;&nbsp;Material ID</td><td>{{literature.id}}</td>
+          </tr>
+          <br>
+          <tr style="border: 1px solid black; ">
+              <td>&nbsp;&nbsp;&nbsp;Title</td><td>{{literature.title}}</td>
+          </tr>
+          <br>
+          <tr style="border: 1px solid black; ">
+              <td>&nbsp;&nbsp;&nbsp;Author</td><td>{{literature.author}}</td>
+          </tr>
+          <br>
+          <tr style="border: 1px solid black;" >
+              <td>&nbsp;&nbsp;&nbsp;Category</td><td>{{literature.category}}</td>
+          </tr>
+          <br>
+          <tr style="border: 1px solid black;" >
+              <td>&nbsp;&nbsp;&nbsp;Date</td><td>{{literature.issuedDate}}</td>
+          </tr>
+          <br>
+      </table>
+
+
+    </tr>
+    <br><br><br><br>
+  </table>
   <br><br><br><br>
+</div>

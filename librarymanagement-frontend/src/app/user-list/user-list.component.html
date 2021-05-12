@@ -53,6 +53,8 @@
             <th>Last Name</th>
             <th>Role</th>
             <th>Email</th>
+            <th>Book Quota</th>
+            <th>Utilized Quota</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -63,6 +65,8 @@
             <td>{{user.lastName}}</td>
             <td>{{user.role}}</td>
             <td>{{user.emailID}}</td>
+            <td>{{user.bookQuota}}</td>
+            <td>{{user.utilizedQuota}}</td>
             <td>
                 <button id="eubtn" (click)="updateUser(user.id)" class="btn bnt-info">Update</button>
                 <button id="dubtn" (click)="deleteUser(user.id)" class="btn bnt-danger" style="margin-left: 10px;">Delete</button>

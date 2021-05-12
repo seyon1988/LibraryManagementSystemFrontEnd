@@ -33,8 +33,8 @@ export class LendService {
   }
 
 
-  getLendByUserID(userID: String):Observable<Lend>{
-    return this.httpClient.get<Lend>(`${this.baseURL}/'byuserid'/${userID}`);
+  getLendByUserID(userID: number):Observable<Lend[]>{
+    return this.httpClient.get<Lend[]>(`${this.baseURL}/byuserid/${userID}`);
   }
 }
  

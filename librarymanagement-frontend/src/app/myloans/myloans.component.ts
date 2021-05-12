@@ -10,6 +10,7 @@ import { LendService } from '../lend-service';
 import { ModelComponent} from '../model/model.component'
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { from } from 'rxjs';
+import { error } from 'selenium-webdriver';
 
 
 @Component({
@@ -21,13 +22,17 @@ export class MyloansComponent implements OnInit {
 
 
 
-  lend:Lend = new Lend();
-  literature:Literature = new Literature();
+  lends:Lend[];
 
-  lid:number;
+  literatures:Literature[] = [];
+
+  arrearsCount1:String;
+  arrearsCount2:String;
+  arrearsText:String;
 
 
   url_identifier:String;
+
   mc:ModelComponent;
   
   p:PARAMS = new PARAMS();
@@ -40,6 +45,10 @@ export class MyloansComponent implements OnInit {
     private route:ActivatedRoute) { 
       this.userService.getUserByID(this.route.snapshot.params['mid']).subscribe(data => {
         this.p.setUserParameters(data);
+        this.lendService.getLendByUserID(this.p.user.id).subscribe(data => {
+          this.lends = data;
+          this.getBooksDetails();
+        } , error => console.log(error));
       } , error => console.log(error));
     }
 
@@ -56,6 +65,23 @@ export class MyloansComponent implements OnInit {
     }
   }
 
+  getBooksDetails(){
+    for(let lend of this.lends){
+      this.literatureService.getLiteratureByID(lend.materialID).subscribe(data => {
+        this.literatures.push(data);
+        console.log(data);
+      } , error => console.log(error));
+    }
+    if(this.lends.length==0){
+      this.arrearsText = "Currently, You dont have any arrears!";
+    }else if(this.lends.length==1){
+      this.arrearsText = "You have Borrowed Following Book";
+    }else if(this.lends.length>=2){
+      this.arrearsText = "You have Borrowed "+(this.lends.length)+" Books , Details Below";
+    }
+    this.arrearsCount1 = "Total Book Quota : " + this.p.user.bookQuota + " Books ";
+    this.arrearsCount2 = "Borrowed Books : " + (this.p.user.utilizedQuota) ;
+  }
 
 
 
@@ -72,7 +98,7 @@ export class MyloansComponent implements OnInit {
   }
   
   manageLending(){
-
+    this.router.navigate(['managelendings',this.p.aid]);
   }
 
   viewBooks(){

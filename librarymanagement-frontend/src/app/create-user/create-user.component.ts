@@ -74,7 +74,7 @@ export class CreateUserComponent implements OnInit {
   }
   
   manageLending(){
-
+    this.router.navigate(['managelendings',this.p.aid]);
   }
 
   goHome(){

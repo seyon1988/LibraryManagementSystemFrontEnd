@@ -1,1 +1,198 @@
-<p>manage-loans works!</p>
+<nav  ng-model="foo" class="navbar navbar-expand-sm   navbar-dark" >
+
+
+
+    <img  src="/assets/images/user.png" alt="image">
+    &nbsp;&nbsp;
+    <ul class = "navbar-nav" style="margin-right: 0px; float: right; color: white;">
+  
+  
+      <li ><a  type="button" (click)="login()"  class="nav-link">
+        <div style="color: white; font-size: 20px">{{p.loginText}}</div></a></li>&nbsp;&nbsp;
+  
+  
+      <li ><a type="button" (click)="goHome()"  class="nav-link">
+        <div style="color: white; font-size: 20px">Home</div></a></li>&nbsp;&nbsp;
+  
+  
+      <li><a type="button" (click)="viewBooks()" class="nav-link">
+        <div style="color: white; font-size: 20px">View Books</div></a></li>&nbsp;&nbsp;
+  
+  
+      <li ><a *ngIf="p.signedin"  type="button" (click)="goToMyLoans()"  class="nav-link">
+        <div style="color: white; font-size: 20px">MyLoans</div></a></li>&nbsp;&nbsp;
+  
+  
+      <li ><a *ngIf="p.isAdmin"  type="button"  (click)="manageUsers()" class="nav-link">
+        <div style="color: white; font-size: 20px">Manage Users</div></a></li>&nbsp;&nbsp;
+  
+  
+      <li ><a *ngIf="p.isAdmin"  type="button" (click)="manageBooks()"  class="nav-link">
+        <div style="color: white; font-size: 20px"> Manage Books</div></a></li>&nbsp;&nbsp;
+  
+  
+      <li ><a *ngIf="p.isAdmin"  type="button" (click)="manageLending()"  class="nav-link">
+        <div style="color: white; font-size: 20px"> Manage Lending</div></a></li>&nbsp;&nbsp;
+  
+    </ul>
+  </nav>
+  <div *ngIf="showList" >
+  <div  *ngFor="let lend of lends; let i = index" >
+    
+    <table  style="width: 1002px; margin-left: 102px; margin-top: 75px; text-align: center; font-weight: bold;
+    background: rgb(112, 112, 112); color: white; border: 1px solid black; " >
+
+      <tr style="padding: 5px;">
+
+          <th style="padding: 5px; margin-left: 0px;">
+              <button style="width : 450px;" class="btn btn-success" (click)="removeFromRegister(literature[i].id)" >
+                  Return Book</button>
+          </th>
+
+        <th style="padding: 5px; width:470px; padding-left: 10px; padding-right: 10px;">
+          Lend a book to user
+    
+        </th>
+
+      </tr>
+    </table>
+    
+    <table  style="border: 1px solid rgb(255, 255, 255);  ">
+      <tr>
+        <td>
+          
+          <table style="width: 500px; margin-left: 100px;border: 1px solid black;" >
+      
+
+    
+            <br>
+            <table style="width: 400px; margin: auto;" >
+              <tr style="border: 1px solid black; text-align: center; font-weight: bold;
+              background: rgb(83, 161, 161); color: white;">
+                  <td>Literature Details</td>
+              </tr>
+            </table>
+    
+            <table style="width: 400px; margin: auto;" >
+    
+              <br>
+              <tr style="border: 1px solid black; ">
+                  <td>&nbsp;&nbsp;&nbsp;Material ID</td><td>{{literatures[i].id}}</td>
+              </tr>
+              <br>
+              <tr style="border: 1px solid black; ">
+                  <td>&nbsp;&nbsp;&nbsp;Title</td><td>{{literatures[i].title}}</td>
+              </tr>
+              <br>
+              <tr style="border: 1px solid black; ">
+                  <td>&nbsp;&nbsp;&nbsp;Author</td><td>{{literatures[i].author}}</td>
+              </tr>
+              <br>
+              <tr style="border: 1px solid black;" >
+                  <td>&nbsp;&nbsp;&nbsp;Category</td><td>{{literatures[i].category}}</td>
+              </tr>
+              <br>
+              <tr style="border: 1px solid black;" >
+                  <td>&nbsp;&nbsp;&nbsp;Date</td><td>{{literatures[i].issuedDate}}</td>
+              </tr>
+              <br>
+              <tr style="border: 1px solid black;" >
+                  <td>&nbsp;&nbsp;&nbsp;Total Books</td><td>{{literatures[i].totalBooks}}</td>
+              </tr>
+              <br>
+              <tr style="border: 1px solid black;" >
+                  <td>&nbsp;&nbsp;&nbsp;Available Books</td><td>{{getAvailableBooks(literatures[i])}}</td>
+              </tr>
+              <br>
+    
+              
+    
+          </table>
+    
+    
+          </table>
+    
+    
+    
+    
+        </td>
+        
+        
+        <td>
+    
+    
+    
+    
+          
+
+          <table style="width: 500px; margin-left: 0px;border: 1px solid black;" >
+              
+            
+
+            
+            <br>
+                <table style="width: 400px; margin: auto;" >
+                  <tr style="border: 1px solid black; text-align: center; font-weight: bold;
+                  background: rgb(83, 161, 161); color: white;">
+                      <td>User Details</td>
+
+                  </tr>
+              </table>
+    
+              <table style="width: 400px; margin: auto;" >
+    
+                <br>
+    
+                <tr style="border: 1px solid black;" >
+                    <td>&nbsp;&nbsp;&nbsp;User ID</td><td>{{users[i].id}}</td>
+                </tr>
+    
+                <br>
+                <tr style="border: 1px solid black; ">
+                    <td>&nbsp;&nbsp;&nbsp;First Name</td><td>{{users[i].firstName}}</td>
+                </tr>
+                <br>
+                <tr style="border: 1px solid black; ">
+                    <td>&nbsp;&nbsp;&nbsp;Last Name</td><td>{{users[i].lastName}}</td>
+                </tr>
+                <br>
+                <tr style="border: 1px solid black; ">
+                    <td>&nbsp;&nbsp;&nbsp;Email</td><td>{{users[i].emailID}}</td>
+                </tr>
+                <br>
+                <tr style="border: 1px solid black;" >
+                    <td>&nbsp;&nbsp;&nbsp;Role</td><td>{{users[i].role}}</td>
+                </tr>
+                <br>
+                <tr style="border: 1px solid black;" >
+                    <td>&nbsp;&nbsp;&nbsp;Book Quota</td><td>{{users[i].bookQuota}}</td>
+                </tr>
+                <br>
+                <tr style="border: 1px solid black;" >
+                    <td>&nbsp;&nbsp;&nbsp;Utilized Quota</td><td>{{users[i].utilizedQuota}}</td>
+                </tr>
+    
+                <br>
+    
+              </table>
+          
+          
+          </table>
+    
+    
+    
+    
+        </td>
+        
+      </tr>
+
+      <tr>
+
+      </tr>
+
+    </table>
+  
+
+</div>
+</div>
+

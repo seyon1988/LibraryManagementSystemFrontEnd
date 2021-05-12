@@ -13,7 +13,7 @@ import { LiteratureService } from '../literature-service';
 export class WelcomeComponent implements OnInit {
 
 
-  
+
   url_identifier : String;
 
 
@@ -29,15 +29,11 @@ export class WelcomeComponent implements OnInit {
     
     this.url_identifier = this.router.url.split('/')[1];
     if(this.url_identifier=="welcome"){
-
-
+      this.p.logoff();
     }else if(this.url_identifier=="member"){
       this.userService.getUserByID(this.route.snapshot.params['mid']).subscribe(data => {
         this.p.setUserParameters(data);
       } , error => console.log(error));
-
-      
-
     }
     
   }
@@ -76,7 +72,7 @@ export class WelcomeComponent implements OnInit {
   }
   
   manageLending(){
-
+    this.router.navigate(['managelendings',this.p.aid]);
   }
 
   goToMyLoans(){
