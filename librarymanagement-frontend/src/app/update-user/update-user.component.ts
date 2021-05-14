@@ -45,10 +45,7 @@ export class UpdateUserComponent implements OnInit  {
 
 
 
-  selectChangeHandler (event: any) {
-    this.p.userHandled.role = event.target.value;
-  }
-  
+
 
   ngOnInit(): void {
 
