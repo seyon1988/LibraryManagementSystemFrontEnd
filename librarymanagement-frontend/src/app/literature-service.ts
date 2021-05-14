@@ -12,7 +12,7 @@ export class LiteratureService {
   
 
     private baseURL = "http://localhost:8080/api/v1/literatures";
-    constructor(private httpClient:HttpClient) { console.log('Constructor called'); }
+    constructor(private httpClient:HttpClient) { }
     
     getLiteratureList(): Observable<Literature[]>{
       return this.httpClient.get<Literature[]>(`${this.baseURL}`);

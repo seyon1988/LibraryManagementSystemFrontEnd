@@ -35,6 +35,8 @@ const routes: Routes = [
   {path: 'viewliterature_/:lid' , component: ViewLiteratureComponent},
   {path: 'lendliteratureu/:aid/:uhid' , component: LendLiteratureComponent},
   {path: 'lendliteraturel/:aid/:lid' , component: LendLiteratureComponent},
+  {path: 'lendliteraturelv/:aid/:lid' , component: LendLiteratureComponent},
+  {path: 'lendliterature/:aid' , component: LendLiteratureComponent},
   {path: 'myloans/:mid' , component: MyloansComponent},
   {path: 'managelendings/:aid' , component: ManageLoansComponent}
 ];

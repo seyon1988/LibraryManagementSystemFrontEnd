@@ -53,7 +53,7 @@ export class LendLiteratureComponent implements OnInit {
       if(this.url_identifier=="lendliteratureu"){
         this.p.uhid = this.route.snapshot.params['uhid'];
         this.selectUser(this.p.uhid);
-      }else if(this.url_identifier=="lendliteraturel"){
+      }else if(this.url_identifier=="lendliteraturel" || this.url_identifier=="lendliteraturelv"){
         this.lid = this.route.snapshot.params['lid'];
         this.selectLiterature(this.lid);
       }
@@ -84,6 +84,12 @@ export class LendLiteratureComponent implements OnInit {
   }
 
   addToRegister(){
+    if(this.p.userHandled.id ==undefined || this.literature.id==undefined){
+      const title = "Please check your input!";
+      const text = "You have to provide both user and material details";
+      this.openModel(title,text);
+      return;
+    }
     if(this.p.userHandled.utilizedQuota>=this.p.userHandled.bookQuota){
       const title = "Book Quota of user exceeded";
       const text = "User has allready borrowed "+this.p.userHandled.utilizedQuota
@@ -97,23 +103,51 @@ export class LendLiteratureComponent implements OnInit {
       this.openModel(title,text);
       return;
     }
-    this.lend.userID = this.p.userHandled.id;
-    this.lend.materialID = this.literature.id;
-    this.lendService.createLend(this.lend).subscribe(data => {
-      console.log(data);
-    }, error => console.log(error));
+    this.lendService.getLendByUsrIdMatId(this.p.userHandled.id,this.literature.id).subscribe( data => {
+      if(data==null){
 
-    this.literature.lendedBooks++;
-    this.literatureService.updateLiterature(this.literature.id,this.literature).subscribe(data => {
-      console.log(data);
-    } , error => console.log(error));
+        this.lend.userID = this.p.userHandled.id;
+        this.lend.materialID = this.literature.id;
+        this.lendService.createLend(this.lend).subscribe(data => {
+          console.log(data);
+          this.literature.lendedBooks++;
+          this.literatureService.updateLiterature(this.literature.id,this.literature).subscribe(data => {
+            console.log(data);
+            this.p.userHandled.utilizedQuota++;
+            this.userService.updateUser(this.p.userHandled.id,this.p.userHandled).subscribe(data => {
+              console.log(data);
+              if(data!=null){
+                const title = "Record Added";
+                const text = "Relavant lending successfully inserted!";
+                this.openModel(title,text);
+                this.goAfterInserting();
+              }
+            } , error => console.log(error));
+          } , error => console.log(error));
+        }, error => console.log(error));
+      }else{
+        const title = "Record Exists";
+        const text = "This user has allready borrowed this book!";
+        this.openModel(title,text);
+      }
 
-    this.p.userHandled.utilizedQuota++;
-    this.userService.updateUser(this.p.userHandled.id,this.p.userHandled).subscribe(data => {
-      console.log(data);
-    } , error => console.log(error));
+    } , data => console.log(data) );
 
 
+
+
+  }
+
+  goAfterInserting(){
+    if(this.url_identifier=="lendliteratureu"){
+      this.goToUsersList();
+    }else if(this.url_identifier=="lendliteraturel"){
+      this.manageBooks();
+    }if(this.url_identifier=="lendliterature"){
+      this.manageLending();
+    }if(this.url_identifier=="lendliteraturelv"){
+      this.viewBooks();
+    }
   }
 
   goToUsersList(){
@@ -127,7 +161,7 @@ export class LendLiteratureComponent implements OnInit {
     return (l.totalBooks - l.lendedBooks);
   }
 
- 
+
 
   createUser(){
     this.router.navigate(['createuser' , this.p.aid]);

@@ -5,6 +5,7 @@ import { User } from "../user";
 import { Literature } from "../literature"
 import { UserService } from "../user.service"
 import { LiteratureService } from '../literature-service';
+import { error } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-literature-list',
@@ -14,8 +15,10 @@ import { LiteratureService } from '../literature-service';
 export class LiteratureListComponent implements OnInit {
 
   literatures:Literature[];
+  lit:Literature;
 
   url_identifier : String;
+  literatureID : number;
 
   p:PARAMS = new PARAMS();
 
@@ -24,6 +27,8 @@ export class LiteratureListComponent implements OnInit {
   enEditDelete:boolean = false ;
 
   litTitle:String = "View Literatures";
+
+  showList:boolean = false;
 
   constructor(
     private literatureService:LiteratureService,
@@ -61,20 +66,35 @@ export class LiteratureListComponent implements OnInit {
           this.getLiteratures();
         } , error => console.log(error));
       }
-      
-      
-
-      
-
   }
 
   ngOnInit(): void {
   }
 
+  selectLiterature(){
+    if(this.literatureID==null  ){
+      alert("Please type an id in text box");
+      return;
+    }
+    this.literatureService.getLiteratureByID(this.literatureID).subscribe( data => {
+
+      if(data.id!=undefined){
+        this.literatures = [];
+        this.literatures.push(data);
+      }else alert("Please type an id in text box");
+    } , error => {
+      alert("No results found for your query");
+      console.log(error)} );
+  }
 
   getLiteratures(){
+    this.showList = false;
+    this.literatureID = null;
     this.literatureService.getLiteratureList(). subscribe(data => {
-      this.literatures = data.sort((a,b)=> a.id-b.id);
+      if(data.length!=0){
+        this.literatures = data.sort((a,b)=> a.id-b.id);
+        this.showList = true;
+      }
     });
   }
 
@@ -98,7 +118,7 @@ export class LiteratureListComponent implements OnInit {
 
 
   lendLiterature(lid:number){
-    this.router.navigate(['lendliteraturel', this.p.aid, lid]);
+    this.router.navigate(['lendliteraturelv', this.p.aid, lid]);
   }
   
   createBook(){
@@ -133,10 +153,8 @@ export class LiteratureListComponent implements OnInit {
   
   viewBooks(){
     if(this.p.signedin) this.router.navigate(['viewliteratures',this.p.uid]);
-    else this.router.navigate(['viewliteratures']);
+    else this.router.navigate(['viewliteratures_']);
   }
-
-
 
   goHome(){
     if(this.p.signedin==true) this.router.navigate(['member',this.p.uid]);

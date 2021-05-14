@@ -36,5 +36,11 @@ export class LendService {
   getLendByUserID(userID: number):Observable<Lend[]>{
     return this.httpClient.get<Lend[]>(`${this.baseURL}/byuserid/${userID}`);
   }
+
+
+  getLendByUsrIdMatId(userID: number , materialID:number):Observable<Lend[]>{
+    return this.httpClient.get<Lend[]>(`${this.baseURL}/${userID}/${materialID}`);
+  }
+
 }
  

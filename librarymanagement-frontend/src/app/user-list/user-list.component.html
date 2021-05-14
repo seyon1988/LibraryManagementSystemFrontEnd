@@ -38,12 +38,48 @@
 </nav>
 
 
-<div class=""></div>
+
 
 <div style="margin-left: 100px; margin-top: 100px; margin-bottom: 100px;">
-<h2  class="display-5" >Manage Users 
-  <button style="width : 400px;margin-left: 20px;" class="btn bnt-info" (click)="createUser()" class="btn btn-success">
-    Create New User</button></h2> 
+
+  <h3>
+    <table  style="width: 1100px;  margin-top: 55px; text-align: center; font-weight: bold;
+    background: rgb(112, 112, 112); color: white; border: 1px solid black; " >
+
+      <tr style="padding: 5px;">
+
+        <th style="padding: 5px; width:470px; padding-left: 10px; padding-right: 10px;">Manage Users</th>
+
+        <th style="padding: 10px; margin-left: 0px;">
+          <button  style="width : 450px;" class="btn btn-success" 
+          (click)="createUser()" >Create New User</button>
+        </th>
+
+
+      </tr>
+    </table>
+
+        <br>
+
+
+       
+        <table  style="width: 1100px;  " >
+          <tr style="border: 1px solid black; text-align: center; font-weight: bold;
+          background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+              <td>
+                <form ng-controller="formCtrl">     
+                  <input placeholder="You can type a user id and filter out specific user!" style="width: 70%;"  type="text" name="name" [(ngModel)]="userID" />
+                  <button type="button" style="width: 15%;" (click)="selectUser()">Select</button>
+                  <button type="button" style="width: 15%;" (click)="getUsers()">Show All</button>
+                </form>
+              </td>
+          </tr>
+        </table>
+        <br>
+      </h3>
+
+
+  
     <br>
 <table class="table table-striped">
     <thead>
@@ -77,3 +113,4 @@
     </tbody>
 </table>
 </div>
+<br>

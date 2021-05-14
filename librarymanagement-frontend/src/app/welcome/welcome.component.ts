@@ -24,7 +24,8 @@ export class WelcomeComponent implements OnInit {
     private userService:UserService,
     private router:Router,
     private route:ActivatedRoute,) { 
-
+    
+    this.p.logoff();
 
     
     this.url_identifier = this.router.url.split('/')[1];
@@ -64,7 +65,11 @@ export class WelcomeComponent implements OnInit {
   }
 
   goHome(){
-    this.router.navigate(['member',this.p.uid]);
+    if(this.p.signedin){
+      this.router.navigate(['member',this.p.uid]);
+    }else{
+      this.router.navigate(['welcome']);
+    }
   }
 
   manageBooks(){

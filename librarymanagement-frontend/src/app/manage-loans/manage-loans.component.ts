@@ -23,11 +23,14 @@ export class ManageLoansComponent implements OnInit {
   p:PARAMS = new PARAMS();
 
   lends:Lend[];
-  users:User[] = [];
-  literatures:Literature[] = [];
+  users:User[];
+  literatures:Literature[];
   literature:Literature;
 
   showList:boolean = false;
+
+  sUhid:number;
+
 
   constructor(
     public matDialog: MatDialog,
@@ -49,8 +52,13 @@ export class ManageLoansComponent implements OnInit {
   }
 
 
-  createLendList(){
-    this.lendService.getLendList().subscribe( data => {
+
+  selectUser(){
+    this.showList = false;
+    this.lends = [] ;
+    this.literatures = [];
+    this.users = [];
+    this.lendService.getLendByUserID(this.sUhid).subscribe( data => {
       this.lends = data ;
       for(let lend of this.lends){
         this.userService.getUserByID(lend.userID).subscribe(data => {
@@ -64,6 +72,50 @@ export class ManageLoansComponent implements OnInit {
     } , error => console.log(error));
   }
 
+
+
+  createLendList(){
+    this.showList = false;
+    this.lends = [] ;
+    this.literatures = [];
+    this.users = [];
+    this.lendService.getLendList().subscribe( data => {
+      this.lends = data ;
+      if(this.lends.length==0) alert("No Lending Records Found on Database");
+      for(let lend of this.lends){
+        this.userService.getUserByID(lend.userID).subscribe(data => {
+          this.users.push(data);
+          this.literatureService.getLiteratureByID(lend.materialID).subscribe(data => {
+            this.literatures.push(data);
+            if(this.lends.length==this.literatures.length) this.showList = true;
+          } , error => console.log(error));
+        } , error => console.log(error));
+      }
+    } , error => console.log(error));
+    
+  }
+
+
+  removeFromRegister( lend:Lend , user:User , literature:Literature ){
+    this.showList = false;
+    if(user.utilizedQuota) user.utilizedQuota--;
+    if(literature.lendedBooks) literature.lendedBooks--;
+    this.userService.updateUser(user.id,user).subscribe( data => {
+      console.log(data);
+      this.literatureService.updateLiterature(literature.id,literature).subscribe( data => {
+        console.log(data);
+        this.lendService.deleteLend(lend.id).subscribe( data => {
+          console.log(data);
+          this.createLendList();
+          this.showList = true;
+        } , error => console.log(error) );
+      } , error => console.log(error));
+    } , error => console.log(error));
+  }
+
+  addNewLend(){
+    this.router.navigate(['/lendliterature',this.p.aid]);
+  }
 
 
   manageUsers(){
@@ -88,10 +140,6 @@ export class ManageLoansComponent implements OnInit {
 
   getAvailableBooks(l : Literature){
     return (l.totalBooks - l.lendedBooks);
-  }
-
-  removeFromRegister(loanID:number){
-
   }
 
 

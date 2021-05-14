@@ -108,7 +108,7 @@ export class MyloansComponent implements OnInit {
 
 
   goHome(){
-    this.router.navigate(['member',this.p.aid]);
+    this.router.navigate(['member',this.p.uid]);
   }
 
 

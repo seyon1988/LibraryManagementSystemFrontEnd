@@ -36,21 +36,60 @@
   
     </ul>
   </nav>
+
+
+  <table style="width: 1002px; margin-left: 100px; margin-top: 100px; border: 1px solid black;" >
+    <tr>
+      <th style="padding: 5px; padding-left: 10px; padding-right: 10px;">
+        Manage Lendings : 
+        <br>Instructions - In this page by default all lendings records in database will be displayed.
+        <br>Each lending record will contain User Details Book Details Lending ID and Return Button ( Green Color Button)
+        <br>When a library member returning book you can collect the book and click Return button ( Green Color Button)
+        <br>Also you can specifically search for the user ID and find his lending details and click "Return Material"
+        <br>For getting details for a specific user, type user id in text box and click "Select" Button
+        <br>To retrive all records after a search click "Show All" Button ( No need to specify user ID)
+        <br>You can create new lending record by clicking "Add New" Button ( No need to specify user ID)
+      </th>
+    </tr>
+  </table>
+
+
+  <br><br>
+  <table style="width: 1002px; margin-left: 100px; " >
+    <tr style="border: 1px solid black; text-align: center; font-weight: bold;
+    background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <td>
+          <form ng-controller="formCtrl">     
+            <input placeholder="You can type a User ID & Get all the materials user borrowed" style="width: 55%;"  type="text" name="name" [(ngModel)]="sUhid" />
+            <button type="button" style="width: 15%;" (click)="selectUser()">Select</button>
+            <button type="button" style="width: 15%;" (click)="createLendList()">Show All</button>
+            <button type="button" style="width: 15%;" (click)="addNewLend()">Add New</button>
+          </form>
+        </td>
+    </tr>
+  </table>
+
+
   <div *ngIf="showList" >
   <div  *ngFor="let lend of lends; let i = index" >
     
-    <table  style="width: 1002px; margin-left: 102px; margin-top: 75px; text-align: center; font-weight: bold;
+
+
+
+
+
+    <table  style="width: 1002px; margin-left: 102px; margin-top: 55px; text-align: center; font-weight: bold;
     background: rgb(112, 112, 112); color: white; border: 1px solid black; " >
 
       <tr style="padding: 5px;">
 
           <th style="padding: 5px; margin-left: 0px;">
-              <button style="width : 450px;" class="btn btn-success" (click)="removeFromRegister(literature[i].id)" >
-                  Return Book</button>
+              <button style="width : 450px;" class="btn btn-success" 
+              (click)="removeFromRegister(lend,users[i],literatures[i])" >Return Material</button>
           </th>
 
         <th style="padding: 5px; width:470px; padding-left: 10px; padding-right: 10px;">
-          Lend a book to user
+          Lending Record ID {{lend.id}}
     
         </th>
 
@@ -196,3 +235,4 @@
 </div>
 </div>
 
+<br><br><br><br><br>

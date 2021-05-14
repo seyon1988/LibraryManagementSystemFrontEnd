@@ -12,10 +12,14 @@ import { LiteratureService } from '../literature-service';
 })
 export class UserListComponent implements OnInit {
 
+  userID:number;
 
   users:User[];
 
   p:PARAMS = new PARAMS();
+
+  showList:boolean = false;
+
   constructor(
     private literatureService:LiteratureService,
     private userService:UserService,
@@ -31,10 +35,32 @@ export class UserListComponent implements OnInit {
     this.getUsers();
   }
 
-  private getUsers(){
+  getUsers(){
+    this.showList = false;
+    this.userID = null;
     this.userService.getUserList(). subscribe(data => {
-      this.users = data.sort((a,b)=> a.id-b.id);
+      if(data.length!=0){
+        this.users = data.sort((a,b)=> a.id-b.id);
+        this.showList = true;;
+      }else alert("No records found on database!");
+      
     });
+  }
+
+  selectUser(){
+    if(this.userID==null  ){
+      alert("Please type an id in text box");
+      return;
+    }
+    this.userService.getUserByID(this.userID).subscribe( data => {
+
+      if(data.id!=undefined){
+        this.users = [];
+        this.users.push(data);
+      }else alert("Please type an id in text box");
+    } , error => {
+      alert("No results found for your query");
+      console.log(error)} );
   }
 
   updateUser(uhid :number){

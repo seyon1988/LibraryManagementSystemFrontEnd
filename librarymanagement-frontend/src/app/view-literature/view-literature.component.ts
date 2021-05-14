@@ -20,7 +20,6 @@ export class ViewLiteratureComponent implements OnInit {
   p:PARAMS = new PARAMS();
 
 
-
   lid:number;
 
 
@@ -42,18 +41,19 @@ export class ViewLiteratureComponent implements OnInit {
       this.literatureService.getLiteratureByID(this.lid).subscribe(data => {
 
         this.literature = data;
-
+        
         if(this.url_identifier=="viewliterature_"){this.p.logoff();}
-
-        this.userService.getUserByID(this.route.snapshot.params['uid']).subscribe(data => {
-          this.p.setUserParameters(data);
-          if(this.url_identifier=="viewliterature"){
-            if(this.p.isAdmin) this.enLend = true;
-          }else if(this.url_identifier=="viewliteraturem"){
-            this.enLend = true;
-            this.enEditDelete = true;
-          }
-        } , error => console.log(error));
+        else{
+          this.userService.getUserByID(this.route.snapshot.params['uid']).subscribe(data => {
+            this.p.setUserParameters(data);
+            if(this.url_identifier=="viewliterature"){
+              if(this.p.isAdmin) this.enLend = true;
+            }else if(this.url_identifier=="viewliteraturem"){
+              this.enLend = true;
+              this.enEditDelete = true;
+            }
+          } , error => console.log(error));
+        }
       } , error => console.log(error));
       
             
@@ -91,7 +91,7 @@ export class ViewLiteratureComponent implements OnInit {
 
 
   lendLiterature(){
-    this.router.navigate(['lendliteraturel', this.p.aid, this.lid]);
+    this.router.navigate(['lendliteraturelv', this.p.aid, this.lid]);
   }
 
   manageUsers(){

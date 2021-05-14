@@ -9,7 +9,7 @@ import { User } from './user';
 export class UserService {
 
   private baseURL = "http://localhost:8080/api/v1/users";
-  constructor(private httpClient:HttpClient) { console.log('Constructor called'); }
+  constructor(private httpClient:HttpClient) { console.log()}
   
   getUserList(): Observable<User[]>{
     return this.httpClient.get<User[]>(`${this.baseURL}`);
