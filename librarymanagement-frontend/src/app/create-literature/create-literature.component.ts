@@ -23,12 +23,10 @@ export class CreateLiteratureComponent implements OnInit {
     private userService:UserService,
     private router:Router,
     private route:ActivatedRoute) {
-      this.literature.category = "Student"
-      //This value explicitly specified because "Role" selected from change event
       this.userService.getUserByID(this.route.snapshot.params['aid']).subscribe(data => {
         this.p.setUserParameters(data);
       } , error => console.log(error));
-
+      this.literature.category = 'Book';
     }
 
   ngOnInit(): void {

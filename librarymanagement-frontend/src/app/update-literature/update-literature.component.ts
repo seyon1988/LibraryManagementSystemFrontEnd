@@ -40,10 +40,7 @@ export class UpdateLiteratureComponent implements OnInit {
 
     }
 
-    selectChangeHandler (event: any) {
-      this.literature.category = event.target.value;
-    }
-    
+
 
 
   ngOnInit(): void {

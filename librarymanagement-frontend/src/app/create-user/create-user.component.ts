@@ -24,20 +24,17 @@ export class CreateUserComponent implements OnInit {
     private userService:UserService,
     private router:Router,
     private route:ActivatedRoute) {
-      this.p.userHandled.role = "Student"
-      //This value explicitly specified because "Role" selected from change event
       this.userService.getUserByID(this.route.snapshot.params['aid']).subscribe(data => {
         this.p.setUserParameters(data);
       } , error => console.log(error));
+      this.p.userHandled.role = 'Student';
   }
 
   ngOnInit(): void {
 
   }
 
-  selectChangeHandler (event: any) {
-    this.p.userHandled.role = event.target.value;
-  }
+
   saveUser(){
     this.userService.createUser(this.p.userHandled).subscribe(data => {
       console.log(data);
